@@ -1,5 +1,6 @@
 package com.example.mealtoday.network
 
+import com.example.mealtoday.db.Categories
 import com.example.mealtoday.db.HotList
 import com.example.mealtoday.db.MealList
 import retrofit2.Response
@@ -12,4 +13,7 @@ interface MealApi {
 
     @GET("filter.php")
     suspend fun getHotMeals(@Query("c") categoryName: String): Response<HotList>
+
+    @GET("categories.php")
+    suspend fun getCategoriesHomeFragment(): Response<Categories>
 }

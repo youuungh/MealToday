@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,14 +11,16 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_blue_grey_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/md_light_green_50"
         app:menu="@menu/nav_bottom_menu"
         app:labelVisibilityMode="labeled"
         app:itemActiveIndicatorStyle="@style/Theme.BottomNavigationView.ActiveIndicator"
@@ -27,9 +29,6 @@
         app:itemIconTint="@color/nav_bottom_color"
         app:itemTextAppearanceActive="@style/bottomNavigationText"
         app:itemTextAppearanceInactive="@style/bottomNavigationText"
-        app:itemTextAppearanceActiveBoldEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:itemTextAppearanceActiveBoldEnabled="false" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

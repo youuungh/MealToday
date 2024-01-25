@@ -20,7 +20,7 @@
     </style>
 
     <style name="Theme.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/md_blue_grey_100</item>
+        <item name="android:color">@color/md_light_green_200</item>
     </style>
 
     <style name="Theme.MealToday" parent="Base.Theme.MealToday" />

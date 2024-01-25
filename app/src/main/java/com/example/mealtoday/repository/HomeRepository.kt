@@ -1,6 +1,7 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
+import com.example.mealtoday.db.Categories
 import com.example.mealtoday.db.HotList
 import com.example.mealtoday.db.MealList
 import com.example.mealtoday.network.MealApi
@@ -29,6 +30,18 @@ class HomeRepository @Inject constructor(
             Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "HotMeal 연결 실패")
+            Log.d("TAG", response.code().toString())
+        }
+        return response
+    }
+
+    suspend fun getCategoriesHome(): Response<Categories> {
+        val response = mealApi.getCategoriesHomeFragment()
+        if (response.isSuccessful) {
+            Log.d("TAG", "Categories 연결 성공")
+            Log.d("TAG", response.code().toString())
+        } else {
+            Log.d("TAG", "Categories 연결 실패")
             Log.d("TAG", response.code().toString())
         }
         return response

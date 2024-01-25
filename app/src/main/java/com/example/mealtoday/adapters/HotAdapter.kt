@@ -17,7 +17,7 @@ class HotAdapter(): RecyclerView.Adapter<HotAdapter.HotViewHolder>() {
         }
 
         override fun areContentsTheSame(oldItem: Hot, newItem: Hot): Boolean {
-            return oldItem.idMeal == newItem.idMeal
+            return oldItem == newItem
         }
     }
 

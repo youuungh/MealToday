@@ -2,6 +2,7 @@ package com.example.mealtoday.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
