@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="10dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/bg_round_search"
@@ -60,10 +60,10 @@
 
                 <ImageView
                     android:id="@+id/randomImage"
+                    android:transitionName="randomImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@null" />
+                    android:scaleType="centerCrop" />
 
             </com.google.android.material.card.MaterialCardView>
 

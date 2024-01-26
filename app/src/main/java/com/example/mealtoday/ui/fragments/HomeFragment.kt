@@ -1,12 +1,15 @@
 package com.example.mealtoday.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var hotAdapter : HotAdapter
@@ -52,6 +55,29 @@ class HomeFragment : Fragment() {
                 Glide.with(this)
                     .load(data.strMealThumb)
                     .into(binding.randomImage)
+
+                try {
+                    binding.randomImage.setOnClickListener {
+//                        val intent = Intent(context, MealActivity::class.java)
+//                        intent.putExtra("mealId", data.idMeal)
+//                        intent.putExtra("mealThumb", data.strMealThumb)
+//                        intent.putExtra("mealTitle", data.strMeal)
+//                        startActivity(intent)
+                        val extras = FragmentNavigatorExtras(binding.randomImage to "randomImage")
+                        val bundle = Bundle()
+                        bundle.putString("mealId", data.idMeal)
+                        bundle.putString("mealTitle", data.strMeal)
+                        bundle.putString("mealThumb", data.strMealThumb)
+                        findNavController().navigate(
+                            R.id.action_homeFragment_to_mealFragment,
+                            bundle,
+                            null,
+                            extras,
+                        )
+                    }
+                } catch (t:Throwable) {
+                    Log.d("TAG", t.message.toString())
+                }
             }
         }
     }

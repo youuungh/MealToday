@@ -37,8 +37,8 @@ class HomeViewModel @Inject constructor(
                     _getRandomMealLiveData.postValue(it[0])
                 }
                 saveStateRandomMeal = response.body()!!.meals[0]
-            } catch (e:Throwable) {
-                Log.d("TAG", e.message.toString() + "RandomMeal 에러")
+            } catch (t:Throwable) {
+                Log.d("TAG", t.message.toString() + "RandomMeal 에러")
             }
         }
     }
@@ -55,8 +55,8 @@ class HomeViewModel @Inject constructor(
                         _getHotMealLiveData.postValue(it)
                     }
                 }
-            } catch (e:Throwable) {
-                Log.d("TAG", e.message.toString() + "HotMeal 에러")
+            } catch (t:Throwable) {
+                Log.d("TAG", t.message.toString() + "HotMeal 에러")
             }
         }
     }
@@ -75,8 +75,8 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                 }
-            } catch (e:Throwable) {
-                Log.d("TAG", e.message.toString() + "Category 에러")
+            } catch (t:Throwable) {
+                Log.d("TAG", t.message.toString() + "Category 에러")
             }
         }
     }
