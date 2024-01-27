@@ -28,5 +28,15 @@
         android:id="@+id/mealFragment"
         android:name="com.example.mealtoday.ui.fragments.MealFragment"
         android:label="fragment_meal"
-        tools:layout="@layout/fragment_meal" />
+        tools:layout="@layout/fragment_meal" >
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <argument
+            android:name="mealThumb"
+            app:argType="string" />
+        <argument
+            android:name="mealTitle"
+            app:argType="string" />
+    </fragment>
 </navigation>

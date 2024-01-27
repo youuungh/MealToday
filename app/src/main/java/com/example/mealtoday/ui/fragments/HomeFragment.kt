@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +20,7 @@ import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoriesHomeAdapter
 import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentHomeBinding
+import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -39,6 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         hotAdapter = HotAdapter()
         categoriesHomeAdapter = CategoriesHomeAdapter()
 
@@ -47,6 +51,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setUpHotRecyclerView()
         getCategories()
         setUpCategoriesRecyclerView()
+
+        requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
+            insetView.updatePadding(
+                top = initialPadding.top + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+            )
+        }
     }
     private fun getRandomMeal() {
         homeViewModel.getRandomMeal()
@@ -58,21 +68,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 try {
                     binding.randomImage.setOnClickListener {
-//                        val intent = Intent(context, MealActivity::class.java)
-//                        intent.putExtra("mealId", data.idMeal)
-//                        intent.putExtra("mealThumb", data.strMealThumb)
-//                        intent.putExtra("mealTitle", data.strMeal)
-//                        startActivity(intent)
                         val extras = FragmentNavigatorExtras(binding.randomImage to "randomImage")
-                        val bundle = Bundle()
-                        bundle.putString("mealId", data.idMeal)
-                        bundle.putString("mealTitle", data.strMeal)
-                        bundle.putString("mealThumb", data.strMealThumb)
-                        findNavController().navigate(
-                            R.id.action_homeFragment_to_mealFragment,
-                            bundle,
-                            null,
-                            extras,
+                        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
+                            data.idMeal, data.strMealThumb, data.strMeal), extras
                         )
                     }
                 } catch (t:Throwable) {

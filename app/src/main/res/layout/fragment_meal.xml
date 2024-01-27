@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionName="randomImage"
-    android:fitsSystemWindows="true"
-    android:background="@color/white"
     tools:context=".ui.fragments.MealFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
+        android:layout_height="200dp"
+        app:statusBarForeground="?attr/colorPrimarySurface"
         tools:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -22,18 +20,20 @@
             android:layout_height="match_parent"
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed"
-            app:title="Meal Title">
+            app:title="">
 
             <ImageView
                 android:id="@+id/mealImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
 
                 <ImageView
                     android:id="@+id/backButton"
@@ -44,7 +44,8 @@
                     android:focusable="true"
                     android:background="@drawable/bg_round_search"
                     android:foreground="@drawable/bg_search_ripple"
-                    android:src="@drawable/ic_rounded_left"/>
+                    android:src="@drawable/ic_rounded_left"
+                    android:visibility="gone"/>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -62,7 +63,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <LinearLayout
                 android:id="@+id/mealLayout"
@@ -115,24 +117,26 @@
 
                 <TextView
                     android:id="@+id/tvIns"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
                     android:fontFamily="@font/google_sans_regular"
                     android:text="Lorem Ipsum"
                     android:textSize="22sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="2"/>
 
                 <ImageView
                     android:id="@+id/favoriteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="6dp"
+                    android:layout_below="@id/tvIns"
+                    android:layout_toEndOf="@id/videoButton"
+                    android:layout_marginTop="16dp"
+                    android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:background="@drawable/bg_round_search"
@@ -143,10 +147,10 @@
                     android:id="@+id/videoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvIns"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_toStartOf="@+id/favoriteButton"
-                    android:layout_centerVertical="true"
-                    android:padding="6dp"
+                    android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:background="@drawable/bg_round_search"

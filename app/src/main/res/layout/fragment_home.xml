@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="12dp"
     tools:context=".ui.fragments.HomeFragment">
     
     <androidx.core.widget.NestedScrollView
@@ -13,7 +12,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <TextView
                 android:id="@+id/tvTitle1"
@@ -22,7 +23,7 @@
                 android:fontFamily="@font/google_sans_bold"
                 android:text="Meal Today"
                 android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@id/top"
+                app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
             <TextView
@@ -43,7 +44,6 @@
                 android:background="@drawable/bg_round_search"
                 android:foreground="@drawable/bg_search_ripple"
                 android:src="@drawable/ic_search"
-                app:layout_constraintTop_toBottomOf="@id/top"
                 app:layout_constraintBottom_toBottomOf="@id/tvSubtitle"
                 app:layout_constraintEnd_toEndOf="@id/end"/>
 
@@ -93,7 +93,7 @@
             <TextView
                 android:id="@+id/tvTitle3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/google_sans_bold"
@@ -106,7 +106,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
                 app:strokeWidth="0dp"
                 app:cardBackgroundColor="@color/md_blue_grey_50"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle3"
@@ -120,13 +119,6 @@
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.card.MaterialCardView>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/start"
