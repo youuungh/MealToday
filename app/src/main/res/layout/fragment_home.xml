@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contentContainer"
     tools:context=".ui.fragments.HomeFragment">
     
     <androidx.core.widget.NestedScrollView
@@ -48,7 +49,8 @@
                 app:layout_constraintEnd_toEndOf="@id/end"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv1"
+                android:id="@+id/cvRandomImage"
+                android:transitionName="randomImage"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="16dp"
@@ -60,7 +62,6 @@
 
                 <ImageView
                     android:id="@+id/randomImage"
-                    android:transitionName="randomImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop" />
@@ -76,7 +77,7 @@
                 android:fontFamily="@font/google_sans_bold"
                 android:text="Hot Items"
                 android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@+id/cv1"
+                app:layout_constraintTop_toBottomOf="@+id/cvRandomImage"
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
             <androidx.recyclerview.widget.RecyclerView

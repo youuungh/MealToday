@@ -22,6 +22,7 @@ import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentHomeBinding
 import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
+import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -42,6 +43,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+        reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
 
         hotAdapter = HotAdapter()
         categoriesHomeAdapter = CategoriesHomeAdapter()
@@ -67,8 +70,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     .into(binding.randomImage)
 
                 try {
-                    binding.randomImage.setOnClickListener {
-                        val extras = FragmentNavigatorExtras(binding.randomImage to "randomImage")
+                    binding.cvRandomImage.setOnClickListener {
+                        val extras = FragmentNavigatorExtras(binding.cvRandomImage to "randomImage")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
                             data.idMeal, data.strMealThumb, data.strMeal), extras
                         )

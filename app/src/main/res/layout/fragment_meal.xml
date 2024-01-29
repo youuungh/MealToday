@@ -4,50 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contentContainer"
     android:transitionName="randomImage"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/transparent"
     tools:context=".ui.fragments.MealFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:statusBarForeground="?attr/colorPrimarySurface"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         tools:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="@android:color/transparent"
+            android:layout_height="230dp"
+            android:fitsSystemWindows="true"
+            app:statusBarScrim="@color/md_light_green_50"
+            app:contentScrim="@color/md_light_green_50"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed"
-            app:title="">
+            app:title="No Data">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/mealImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
+                android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 app:layout_collapseMode="parallax"/>
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
-
-                <ImageView
-                    android:id="@+id/backButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="9dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="@drawable/bg_round_search"
-                    android:foreground="@drawable/bg_search_ripple"
-                    android:src="@drawable/ic_rounded_left"
-                    android:visibility="gone"/>
-
-            </com.google.android.material.appbar.MaterialToolbar>
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:layout_collapseMode="pin"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -71,38 +65,40 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_round_text"
                 app:layout_constraintTop_toTopOf="@id/top"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center_vertical|center_horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:drawableStart="@drawable/ic_category"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:background="@drawable/bg_round_text"
+                    android:drawablePadding="6dp"
                     android:fontFamily="@font/google_sans_regular"
                     android:text="Category"
                     android:textStyle="bold"
                     android:singleLine="true"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end"
+                    app:drawableStartCompat="@drawable/ic_category" />
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center_vertical|center_horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
-                    android:drawableStart="@drawable/ic_location"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:background="@drawable/bg_round_text"
+                    android:drawablePadding="6dp"
                     android:fontFamily="@font/google_sans_regular"
                     android:text="Location"
                     android:textStyle="bold"
                     android:singleLine="true"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end"
+                    app:drawableStartCompat="@drawable/ic_location" />
 
             </LinearLayout>
 
@@ -110,7 +106,7 @@
                 android:id="@+id/insLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/mealLayout"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
