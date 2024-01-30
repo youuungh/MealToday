@@ -2,6 +2,8 @@ package com.example.mealtoday.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //DynamicColors.applyToActivityIfAvailable(this)
         //window.navigationBarColor = SurfaceColors.SURFACE_2.getColor(this);
-        enableEdgeToEdge()
+        window.setDecorFitsSystemWindows(false)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

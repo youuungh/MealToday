@@ -56,6 +56,7 @@
                 android:layout_marginTop="16dp"
                 app:strokeWidth="0dp"
                 app:cardBackgroundColor="@color/md_blue_grey_50"
+                app:cardElevation="8dp"
                 app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
@@ -69,13 +70,13 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/tvTitle2"
+                android:id="@+id/tvHot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/google_sans_bold"
-                android:text="Hot Items"
+                android:text="인기있는"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/cvRandomImage"
                 app:layout_constraintStart_toStartOf="@id/start"/>
@@ -85,20 +86,20 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:paddingHorizontal="14dp"
+                android:paddingHorizontal="12dp"
                 android:clipToPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle2"
+                app:layout_constraintTop_toBottomOf="@id/tvHot"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                android:id="@+id/tvTitle3"
+                android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/google_sans_bold"
-                android:text="Category"
+                android:text="카테고리"
                 android:textSize="22sp"
                 app:layout_constraintTop_toBottomOf="@+id/hotRecycler"
                 app:layout_constraintStart_toStartOf="@id/start"/>
@@ -109,7 +110,7 @@
                 android:layout_marginTop="16dp"
                 app:strokeWidth="0dp"
                 app:cardBackgroundColor="@color/md_blue_grey_50"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle3"
+                app:layout_constraintTop_toBottomOf="@id/tvCategory"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end"
                 app:layout_constraintBottom_toBottomOf="parent">

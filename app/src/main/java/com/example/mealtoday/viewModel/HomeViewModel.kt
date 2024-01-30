@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
     fun getCategoriesHomeFragment() {
         viewModelScope.launch {
             try {
-                val  response = homeRepository.getCategoriesHome()
+                val response = homeRepository.getCategoriesHome()
                 if (response.isSuccessful) {
                     response.body()?.categories.let { data ->
                         if (data != null) {

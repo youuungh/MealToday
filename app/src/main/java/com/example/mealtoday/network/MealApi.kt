@@ -16,4 +16,7 @@ interface MealApi {
 
     @GET("categories.php")
     suspend fun getCategoriesHomeFragment(): Response<Categories>
+
+    @GET("lookup.php")
+    suspend fun getMealInfo(@Query("i") mealId: String): Response<MealList>
 }

@@ -1,16 +1,19 @@
 package com.example.mealtoday.ui.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
-import android.os.Build
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.net.Uri
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.updatePadding
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -19,13 +22,15 @@ import com.bumptech.glide.Glide
 import com.example.mealtoday.R
 import com.example.mealtoday.databinding.FragmentMealBinding
 import com.example.mealtoday.ui.activities.MainActivity
-import com.example.mealtoday.utils.doOnApplyWindowInsets
-import com.example.mealtoday.utils.fitSystemWindowsWithAdjustResize
+import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.transition.platform.MaterialContainerTransform
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {
     private lateinit var binding: FragmentMealBinding
     private lateinit var navController: NavController
+    private val mealViewModel: MealViewModel by viewModels()
     private val args: MealFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,15 +45,18 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMealBinding.bind(view)
-
-        val activity = activity as MainActivity
         navController = Navigation.findNavController(view)
 
-        activity.setSupportActionBar(binding.toolbar)
-        binding.toolbar.title = null
-        binding.toolbar.setupWithNavController(navController)
+        val activity = activity as MainActivity
 
+        activity.setSupportActionBar(binding.toolbar)
+        binding.toolbar.setupWithNavController(navController)
+        binding.toolbar.title = " "
+        binding.collapsing.title = " "
+
+        setAppBarOffset(activity)
         getMealInfo()
+        observeGetMealInfoData()
 
         activity.onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -58,11 +66,58 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
     }
 
     private fun getMealInfo() {
-
-        binding.tvIns.text = args.mealTitle
+        binding.tvTitle.text = args.mealTitle
 
         Glide.with(this)
             .load(args.mealThumb)
             .into(binding.mealImage)
+    }
+
+    private fun observeGetMealInfoData() {
+        mealViewModel.getMealInfo(args.mealId)
+        mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
+            binding.category.text = data.strCategory
+            binding.location.text = data.strArea
+            binding.tvContent.text = data.strInstructions
+            binding.videoButton.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube))
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun setAppBarOffset(activity: Activity) {
+        binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val window = activity.window
+            val collapsingHeight = binding.collapsing.height
+            val minimumHeight = ViewCompat.getMinimumHeight(binding.collapsing) * 2
+            val controller = WindowCompat.getInsetsController(window, window.decorView)
+
+            val colorFilter = if ((collapsingHeight + verticalOffset) < minimumHeight) {
+                controller.isAppearanceLightStatusBars = true
+                PorterDuffColorFilter(
+                    ContextCompat.getColor(requireContext(), R.color.black),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            } else {
+                controller.isAppearanceLightStatusBars = false
+                PorterDuffColorFilter(
+                    ContextCompat.getColor(requireContext(), R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            }
+
+            binding.toolbar.navigationIcon?.colorFilter = colorFilter
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.let {
+            WindowCompat.getInsetsController(
+                it.window,
+                requireActivity().window.decorView
+            ).isAppearanceLightStatusBars = true
+        }
     }
 }

@@ -7,6 +7,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#151515</color>
     <color name="colorSurface">@color/md_light_green_50</color>
+    <color name="colorOnSurface">@color/md_light_green_50</color>
 
     <!--color palette-->
     <color name="purple">#D4C4E3</color>
