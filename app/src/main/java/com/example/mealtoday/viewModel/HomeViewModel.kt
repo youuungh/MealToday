@@ -1,14 +1,13 @@
 package com.example.mealtoday.viewModel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mealtoday.db.Category
-import com.example.mealtoday.db.Hot
-import com.example.mealtoday.db.Meal
+import com.example.mealtoday.data.Category
+import com.example.mealtoday.data.Hot
+import com.example.mealtoday.data.Meal
 import com.example.mealtoday.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

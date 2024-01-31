@@ -7,24 +7,32 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.mealtoday.R
+import com.example.mealtoday.data.Meal
 import com.example.mealtoday.databinding.FragmentMealBinding
 import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {
@@ -42,10 +50,20 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMealBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentMealBinding.bind(view)
         navController = Navigation.findNavController(view)
+
+        ViewCompat.setTransitionName(binding.contentContainer, "trans_${args.mealId}")
 
         val activity = activity as MainActivity
 
@@ -57,12 +75,6 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         setAppBarOffset(activity)
         getMealInfo()
         observeGetMealInfoData()
-
-        activity.onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navController.popBackStack()
-            }
-        })
     }
 
     private fun getMealInfo() {
@@ -73,15 +85,22 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             .into(binding.mealImage)
     }
 
+    private var saveMeal: Meal? = null
     private fun observeGetMealInfoData() {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
+            saveMeal = data
             binding.category.text = data.strCategory
             binding.location.text = data.strArea
             binding.tvContent.text = data.strInstructions
             binding.videoButton.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube))
                 startActivity(intent)
+            }
+            binding.favoriteButton.setOnClickListener {
+                saveMeal?.let { meal ->
+                    mealViewModel.upsertMeal(meal)
+                }
             }
         }
     }

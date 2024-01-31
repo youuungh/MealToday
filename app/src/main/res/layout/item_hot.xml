@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvHotImage"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:strokeColor="@color/black"
+    android:layout_marginBottom="6dp"
+    android:layout_marginHorizontal="10dp"
     app:strokeWidth="0dp"
-    app:cardElevation="6dp"
+    app:cardElevation="3dp"
     app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@color/md_blue_grey_50"
-    app:cardUseCompatPadding="true">
+    app:cardBackgroundColor="@color/md_blue_grey_50">
     
     <ImageView
         android:id="@+id/hotImage"

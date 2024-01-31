@@ -1,4 +1,4 @@
-package com.example.mealtoday.db
+package com.example.mealtoday.data
 
 data class MealList(
     val meals: List<Meal>

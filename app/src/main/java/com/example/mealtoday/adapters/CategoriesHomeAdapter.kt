@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mealtoday.databinding.ItemCategoryBinding
-import com.example.mealtoday.db.Category
+import com.example.mealtoday.data.Category
 
 class CategoriesHomeAdapter() : RecyclerView.Adapter<CategoriesHomeAdapter.ItemViewHolder>() {
+
+    lateinit var onCategoryItemClick: ((Category) -> Unit)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
@@ -38,7 +40,11 @@ class CategoriesHomeAdapter() : RecyclerView.Adapter<CategoriesHomeAdapter.ItemV
             .into(holder.binding.categoryImage)
 
         holder.binding.tvCategoryTitle.text = data.strCategory
+
+        holder.apply {
+            itemView.setOnClickListener {
+                onCategoryItemClick.invoke(data)
+            }
+        }
     }
-
-
 }

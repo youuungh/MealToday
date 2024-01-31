@@ -1,16 +1,14 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
-import com.example.mealtoday.db.Categories
-import com.example.mealtoday.db.HotList
-import com.example.mealtoday.db.MealList
+import com.example.mealtoday.data.Categories
+import com.example.mealtoday.data.HotList
+import com.example.mealtoday.data.MealList
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(
-    private val mealApi: MealApi
-) {
+class HomeRepository @Inject constructor(private val mealApi: MealApi) {
     suspend fun getRandomMeal(): Response<MealList> {
         val response = mealApi.getRandomMeal()
         if (response.isSuccessful) {

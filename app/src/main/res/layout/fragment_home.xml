@@ -24,6 +24,7 @@
                 android:fontFamily="@font/google_sans_bold"
                 android:text="Meal Today"
                 android:textSize="22sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tvSubtitle"
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
@@ -50,7 +51,6 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvRandomImage"
-                android:transitionName="randomImage"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="16dp"
@@ -86,7 +86,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="10dp"
                 android:clipToPadding="false"
                 app:layout_constraintTop_toBottomOf="@id/tvHot"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +108,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:strokeWidth="0dp"
-                app:cardBackgroundColor="@color/md_blue_grey_50"
+                android:layout_marginBottom="10dp"
+                app:strokeWidth="0.7dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/tvCategory"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end"

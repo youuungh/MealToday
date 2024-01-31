@@ -1,7 +1,12 @@
-package com.example.mealtoday.db
+package com.example.mealtoday.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "mealInfo")
 data class Meal(
     val dateModified: Any,
+    @PrimaryKey
     val idMeal: String,
     val strArea: String,
     val strCategory: String,

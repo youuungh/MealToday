@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mealtoday.db.Meal
+import com.example.mealtoday.data.Meal
 import com.example.mealtoday.repository.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,9 +26,19 @@ class MealViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     _getMealInfoLiveData.value = response.body()!!.meals[0]
                 }
-            } catch (t: Throwable) {
+            } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "MealInfo 에러")
             }
         }
     }
+
+    fun upsertMeal(meal: Meal) = viewModelScope.launch {
+        mealRepository.upsertMeal(meal)
+    }
+
+    fun deleteMeal(meal: Meal) = viewModelScope.launch {
+        mealRepository.deleteMeal(meal)
+    }
+
+    fun getSavedMeal() = mealRepository.getSavedMeal
 }

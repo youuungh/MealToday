@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +21,7 @@ import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoriesHomeAdapter
 import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentHomeBinding
+import com.example.mealtoday.databinding.ItemHotBinding
 import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
@@ -42,6 +44,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        postponeEnterTransition()
+        view.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
         super.onViewCreated(view, savedInstanceState)
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
@@ -52,8 +58,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getRandomMeal()
         getHotMeal()
         setUpHotRecyclerView()
+        //onHotItemClick()
         getCategories()
         setUpCategoriesRecyclerView()
+        onCategoryItemClick()
 
         requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
             insetView.updatePadding(
@@ -61,9 +69,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             )
         }
     }
+
     private fun getRandomMeal() {
         homeViewModel.getRandomMeal()
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner) { data ->
+            binding.cvRandomImage.transitionName = "trans_${data.idMeal}"
             run {
                 Glide.with(this)
                     .load(data.strMealThumb)
@@ -71,10 +81,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 try {
                     binding.cvRandomImage.setOnClickListener {
-                        val extras = FragmentNavigatorExtras(binding.cvRandomImage to "randomImage")
+                        val extras = FragmentNavigatorExtras(binding.cvRandomImage to "trans_${data.idMeal}")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
                             data.idMeal, data.strMealThumb, data.strMeal), extras
                         )
+                        Log.d("tag", ""+binding.cvRandomImage.transitionName)
                     }
                 } catch (t:Throwable) {
                     Log.d("TAG", t.message.toString())
@@ -89,6 +100,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter = hotAdapter
         }
     }
+
+//    private fun onHotItemClick() {
+//        hotAdapter.onHotItemClick = { data ->
+//            val extras = FragmentNavigatorExtras(ItemHotBinding.inflate(layoutInflater).cvHotImage to "trans_${data.idMeal}")
+//            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
+//                data.idMeal, data.strMealThumb, data.strMeal), extras
+//            )
+//        }
+//    }
 
     private fun getHotMeal() {
         homeViewModel.getHotMeals()
@@ -110,6 +130,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.categoryRecycler.apply {
             layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
             adapter = categoriesHomeAdapter
+        }
+    }
+
+    private fun onCategoryItemClick() {
+        categoriesHomeAdapter.onCategoryItemClick = { data ->
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment(
+                data.strCategory
+            ))
         }
     }
 }

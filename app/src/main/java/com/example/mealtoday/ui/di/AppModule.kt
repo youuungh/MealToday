@@ -1,5 +1,8 @@
 package com.example.mealtoday.ui.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.mealtoday.db.MealDatabase
 import com.example.mealtoday.network.MealApi
 import dagger.Module
 import dagger.Provides
@@ -20,4 +23,13 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(MealApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application): MealDatabase =
+        Room.databaseBuilder(
+            app,
+            MealDatabase::class.java,
+            "meal.db"
+        ).build()
 }

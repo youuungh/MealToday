@@ -2,14 +2,20 @@ package com.example.mealtoday.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mealtoday.databinding.ItemHotBinding
-import com.example.mealtoday.db.Hot
+import com.example.mealtoday.data.Hot
+import com.example.mealtoday.ui.fragments.HomeFragmentDirections
 
-class HotAdapter(): RecyclerView.Adapter<HotAdapter.HotViewHolder>() {
+class HotAdapter: RecyclerView.Adapter<HotAdapter.HotViewHolder>() {
+
+    lateinit var onHotItemClick: ((Hot) -> Unit)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Hot>() {
         override fun areItemsTheSame(oldItem: Hot, newItem: Hot): Boolean {
@@ -36,5 +42,17 @@ class HotAdapter(): RecyclerView.Adapter<HotAdapter.HotViewHolder>() {
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
             .into(holder.binding.hotImage)
+
+        holder.apply {
+            itemView.transitionName = "trans_${data.idMeal}"
+            itemView.setOnClickListener {
+                //onHotItemClick.invoke(data)
+                val extras = FragmentNavigatorExtras(holder.binding.cvHotImage to "trans_${data.idMeal}")
+                Navigation.findNavController(it).navigate(
+                    HomeFragmentDirections.actionHomeFragmentToMealFragment(
+                        data.idMeal, data.strMealThumb, data.strMeal), extras
+                )
+            }
+        }
     }
 }
