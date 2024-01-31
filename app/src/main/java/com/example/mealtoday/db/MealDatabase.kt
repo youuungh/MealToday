@@ -1,0 +1,18 @@
+package com.example.mealtoday.db
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.mealtoday.data.Meal
+
+@Database(
+    entities = [Meal::class],
+    version = 1
+)
+@TypeConverters(
+    MealTypeConverter::class
+)
+
+abstract class MealDatabase: RoomDatabase() {
+    abstract fun mealDao(): MealDao
+}
