@@ -10,7 +10,7 @@ import com.example.mealtoday.data.Meal
     version = 1
 )
 @TypeConverters(
-    MealTypeConverter::class
+    MealConverters::class
 )
 
 abstract class MealDatabase: RoomDatabase() {

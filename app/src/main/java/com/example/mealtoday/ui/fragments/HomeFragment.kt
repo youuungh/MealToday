@@ -25,15 +25,24 @@ import com.example.mealtoday.databinding.ItemHotBinding
 import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
+    private val homeViewModel: HomeViewModel by viewModels()
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var hotAdapter : HotAdapter
     private lateinit var categoriesHomeAdapter : CategoriesHomeAdapter
-    private val homeViewModel: HomeViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        hotAdapter = HotAdapter()
+        categoriesHomeAdapter = CategoriesHomeAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +57,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         view.doOnPreDraw {
             startPostponedEnterTransition()
         }
-        super.onViewCreated(view, savedInstanceState)
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
-
-        hotAdapter = HotAdapter()
-        categoriesHomeAdapter = CategoriesHomeAdapter()
+        super.onViewCreated(view, savedInstanceState)
 
         getRandomMeal()
         getHotMeal()
@@ -85,7 +91,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
                             data.idMeal, data.strMealThumb, data.strMeal), extras
                         )
-                        Log.d("tag", ""+binding.cvRandomImage.transitionName)
                     }
                 } catch (t:Throwable) {
                     Log.d("TAG", t.message.toString())

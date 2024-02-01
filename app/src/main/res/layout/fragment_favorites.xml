@@ -1,92 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/contentContainer"
+    android:orientation="vertical"
     tools:context=".ui.fragments.FavoritesFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:liftOnScroll="true">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:fitsSystemWindows="true">
 
-            <RelativeLayout
+            <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="?actionBarSize">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/appBarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="2dp"
-                    android:fontFamily="@font/google_sans_bold"
-                    android:text="Favorite"
-                    android:textSize="22sp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvItemCounts"
-                    android:layout_width="32dp"
-                    android:layout_height="30dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/appBarTitle"
-                    android:background="@drawable/bg_round_counts"
-                    android:fontFamily="@font/google_sans_regular"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/appBarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/google_sans_bold"
+                        android:text="Favorite"
+                        android:textSize="22sp" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvItemCounts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="32dp"
+                        android:fontFamily="@font/google_sans_regular"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="100" />
 
-            </RelativeLayout>
+                </RelativeLayout>
 
-        </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFavorite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFavorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="16dp"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/noDataContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/noDataContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/noDataText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:fontFamily="@font/google_sans_medium"
-            android:text="비었습니다"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/noDataText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/google_sans_medium"
+                android:text="비었습니다"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

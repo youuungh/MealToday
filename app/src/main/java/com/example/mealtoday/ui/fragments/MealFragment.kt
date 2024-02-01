@@ -36,10 +36,13 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {
-    private lateinit var binding: FragmentMealBinding
-    private lateinit var navController: NavController
+
     private val mealViewModel: MealViewModel by viewModels()
     private val args: MealFragmentArgs by navArgs()
+
+    private lateinit var binding: FragmentMealBinding
+    private lateinit var navController: NavController
+    private var saveMeal: Meal? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,8 +69,8 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         ViewCompat.setTransitionName(binding.contentContainer, "trans_${args.mealId}")
 
         val activity = activity as MainActivity
-
         activity.setSupportActionBar(binding.toolbar)
+
         binding.toolbar.setupWithNavController(navController)
         binding.toolbar.title = " "
         binding.collapsing.title = " "
@@ -84,8 +87,6 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             .load(args.mealThumb)
             .into(binding.mealImage)
     }
-
-    private var saveMeal: Meal? = null
     private fun observeGetMealInfoData() {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->

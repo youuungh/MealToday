@@ -22,10 +22,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+
+    private val mealViewModel: MealViewModel by viewModels()
+
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var favoriteAdapter: FavoriteAdapter
-    private val mealViewModel: MealViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,24 +38,17 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+        super.onViewCreated(view, savedInstanceState)
 
         setUpFavoriteRecyclerView()
         getSavedData()
-
-        requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
-            insetView.updatePadding(
-                top = initialPadding.top + windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
-            )
-        }
     }
 
     private fun getSavedData() {

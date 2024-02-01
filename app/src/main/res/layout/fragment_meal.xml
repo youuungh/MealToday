@@ -22,8 +22,6 @@
             android:layout_height="230dp"
             android:labelFor="@null"
             app:toolbarId="@id/toolbar"
-            app:statusBarScrim="@color/md_light_green_50"
-            app:contentScrim="@color/md_light_green_50"
             app:layout_scrollFlags="snap|scroll|exitUntilCollapsed">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -117,36 +115,38 @@
                 android:id="@+id/insLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@id/mealLayout"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:ellipsize="end"
+                    android:ems="9"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:maxLines="2"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
-                    android:fontFamily="@font/google_sans_regular"
                     android:text="Lorem Ipsum"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="2"/>
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/favoriteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvTitle"
-                    android:layout_toEndOf="@id/videoButton"
-                    android:layout_marginTop="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
                     android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="@drawable/bg_round_search"
+                    android:background="@drawable/bg_round_content_button"
                     android:foreground="@drawable/bg_search_ripple"
                     android:src="@drawable/ic_favorite"/>
 
@@ -154,15 +154,15 @@
                     android:id="@+id/videoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvTitle"
-                    android:layout_marginTop="16dp"
+                    android:layout_centerInParent="true"
                     android:layout_marginEnd="16dp"
-                    android:padding="8dp"
+                    android:layout_toStartOf="@id/favoriteButton"
+                    android:background="@drawable/bg_round_content_button"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="@drawable/bg_round_search"
                     android:foreground="@drawable/bg_search_ripple"
-                    android:src="@drawable/ic_play"/>
+                    android:padding="8dp"
+                    android:src="@drawable/ic_play" />
 
             </RelativeLayout>
 

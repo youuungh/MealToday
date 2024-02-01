@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 
 @TypeConverters
-class MealTypeConverter {
+class MealConverters {
 
     @TypeConverter
     fun fromAnyToString(attribute: Any?): String {
