@@ -11,6 +11,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +23,7 @@ import com.example.mealtoday.adapters.CategoriesHomeAdapter
 import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentHomeBinding
 import com.example.mealtoday.databinding.ItemHotBinding
+import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
@@ -54,11 +56,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
+        view.doOnPreDraw { startPostponedEnterTransition() }
         enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
-        reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(binding.contentContainer)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(binding.contentContainer)
         super.onViewCreated(view, savedInstanceState)
 
         getRandomMeal()
@@ -83,6 +84,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             run {
                 Glide.with(this)
                     .load(data.strMealThumb)
+                    .override(300, 300)
                     .into(binding.randomImage)
 
                 try {

@@ -20,9 +20,33 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:navigationIcon="@drawable/ic_arrow_back"
-                app:titleCentered="true"/>
+                android:layout_height="?actionBarSize">
+
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:background="@drawable/button_ripple"
+                    android:src="@drawable/ic_arrow_back" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/categoryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_round_title"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:paddingStart="13dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="13dp"
+                    android:paddingBottom="5dp"
+                    android:textSize="16sp"
+                    android:textAlignment="center" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

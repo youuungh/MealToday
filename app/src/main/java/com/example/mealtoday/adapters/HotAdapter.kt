@@ -41,6 +41,7 @@ class HotAdapter: RecyclerView.Adapter<HotAdapter.HotViewHolder>() {
         val data = differ.currentList[position]
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
+            .override(300, 300)
             .into(holder.binding.hotImage)
 
         holder.apply {

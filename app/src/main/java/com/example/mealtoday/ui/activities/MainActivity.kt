@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
@@ -14,6 +15,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mealtoday.R
 import com.example.mealtoday.databinding.ActivityMainBinding
+import com.example.mealtoday.utils.hide
+import com.example.mealtoday.utils.show
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.elevation.SurfaceColors
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,24 +42,20 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.mealFragment -> hideBottomNavigation()
-                else -> showBottomNavigation()
+                R.id.mealFragment, R.id.categoryFragment -> {
+                    setBottomNavVisibility(visible = false)
+                }
+                else -> setBottomNavVisibility(visible = true)
             }
         }
     }
 
-    private fun hideBottomNavigation() {
-        binding.bottomNavigation.isVisible = false
-        binding.bottomNavigation.animate()
-            .setDuration(300L)
-            .translationY(binding.bottomNavigation.height.toFloat())
-    }
-
-    private fun showBottomNavigation() {
-        binding.bottomNavigation.bringToFront()
-        binding.bottomNavigation.isVisible = true
-        binding.bottomNavigation.animate()
-            .translationY(0f)
-            .setDuration(400L)
+    private fun setBottomNavVisibility(visible: Boolean) {
+        if (visible) {
+            binding.bottomNavigation.bringToFront()
+            binding.bottomNavigation.show()
+        } else {
+            binding.bottomNavigation.hide()
+        }
     }
 }

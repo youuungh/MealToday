@@ -85,6 +85,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
 
         Glide.with(this)
             .load(args.mealThumb)
+            .override(300, 300)
             .into(binding.mealImage)
     }
     private fun observeGetMealInfoData() {

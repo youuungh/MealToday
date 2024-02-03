@@ -40,6 +40,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
+            .override(300, 300)
             .into(holder.binding.contentImage)
 
         holder.apply {

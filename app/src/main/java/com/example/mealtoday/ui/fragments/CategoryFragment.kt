@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -20,7 +17,6 @@ import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoryAdapter
 import com.example.mealtoday.databinding.FragmentCategoryBinding
 import com.example.mealtoday.ui.activities.MainActivity
-import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.CategoryViewModel
 import com.google.android.material.transition.platform.MaterialElevationScale
 import com.google.android.material.transition.platform.MaterialSharedAxis
@@ -51,15 +47,14 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(binding.root)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(binding.root)
         super.onViewCreated(view, savedInstanceState)
+
         navController = Navigation.findNavController(view)
 
-        val activity = activity as MainActivity
-        activity.setSupportActionBar(binding.toolbar)
-
-        binding.toolbar.setupWithNavController(navController)
+        binding.backButton.setOnClickListener { navController.popBackStack() }
+        binding.categoryName.text = args.categoryName
 
         getCategoryInfo()
         setUpCategoryRecyclerView()
