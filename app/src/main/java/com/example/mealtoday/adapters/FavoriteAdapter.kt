@@ -1,13 +1,16 @@
 package com.example.mealtoday.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mealtoday.data.Meal
 import com.example.mealtoday.databinding.ItemFavoriteBinding
+import eightbitlab.com.blurview.RenderEffectBlur
 
 class FavoriteAdapter(): RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
 
@@ -31,6 +34,7 @@ class FavoriteAdapter(): RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() 
 
     override fun getItemCount() = differ.currentList.size
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val data = differ.currentList[position]
 
@@ -38,8 +42,9 @@ class FavoriteAdapter(): RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() 
             .load(data.strMealThumb)
             .into(holder.binding.favoriteImage)
 
-        holder.binding.tvFavTitle.text = data.strMeal
+        holder.apply {
+            holder.binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            holder.binding.tvFavTitle.text = data.strMeal
+        }
     }
-
-
 }

@@ -23,7 +23,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 
-const val ANIM_DURATION = 300L
+const val ANIM_DURATION_SHOW = 400L
+const val ANIM_DURATION_HIDE = 300L
 
 fun View.doOnApplyWindowInsets(windowInsetsListener: (insetView: View, windowInsets: WindowInsetsCompat,
                                                       initialPadding: Insets, initialMargins: Insets
@@ -69,7 +70,7 @@ fun NavigationBarView.show() {
     drawable.setBounds(left, parent.height, right, parent.height + height)
     parent.overlay.add(drawable)
     ValueAnimator.ofInt(parent.height, top).apply {
-        duration = ANIM_DURATION
+        duration = ANIM_DURATION_SHOW
         interpolator = AnimationUtils.loadInterpolator(
             context,
             android.R.interpolator.accelerate_decelerate
@@ -101,7 +102,7 @@ fun NavigationBarView.hide() {
     parent.overlay.add(drawable)
     isGone = true
     ValueAnimator.ofInt(top, parent.height).apply {
-        duration = ANIM_DURATION
+        duration = ANIM_DURATION_HIDE
         interpolator = AnimationUtils.loadInterpolator(
             context,
             android.R.interpolator.accelerate_decelerate

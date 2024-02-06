@@ -31,8 +31,12 @@ import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {
@@ -99,6 +103,8 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube))
                 startActivity(intent)
             }
+
+
             binding.favoriteButton.setOnClickListener {
                 saveMeal?.let { meal ->
                     mealViewModel.upsertMeal(meal)
