@@ -12,7 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoryAdapter
 import com.example.mealtoday.databinding.FragmentCategoryBinding
@@ -71,7 +74,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private fun setUpCategoryRecyclerView() {
         binding.rvCategoryContent.apply {
-            layoutManager = LinearLayoutManager(context)
+            //layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
+            //layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = categoryAdapter
             setHasFixedSize(true)
         }

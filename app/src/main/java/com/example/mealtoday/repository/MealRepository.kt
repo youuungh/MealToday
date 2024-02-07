@@ -1,11 +1,13 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.mealtoday.data.Meal
 import com.example.mealtoday.data.MealList
 import com.example.mealtoday.db.MealDatabase
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
+import java.util.concurrent.Flow
 import javax.inject.Inject
 
 class MealRepository @Inject constructor(
@@ -34,5 +36,9 @@ class MealRepository @Inject constructor(
         database.deleteMeal(meal)
     }
 
-    val getSavedMeal = database.getSavedMeal()
+    fun getFavoriteMeal(id: String?): LiveData<List<Meal>> {
+        return database.getFavoriteMeal(id)
+    }
+
+    val getAllFavoriteMeal = database.getAllFavoriteMeal()
 }

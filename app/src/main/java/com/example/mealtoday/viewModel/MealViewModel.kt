@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mealtoday.data.Meal
 import com.example.mealtoday.repository.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,5 +41,8 @@ class MealViewModel @Inject constructor(
         mealRepository.deleteMeal(meal)
     }
 
-    fun getSavedMeal() = mealRepository.getSavedMeal
+    fun isFavorite(id: String?): LiveData<List<Meal>> {
+        return mealRepository.getFavoriteMeal(id)
+    }
+    fun getAllFavoriteMeal() = mealRepository.getAllFavoriteMeal
 }

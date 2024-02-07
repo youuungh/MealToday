@@ -1,5 +1,6 @@
 package com.example.mealtoday.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -17,6 +18,9 @@ interface MealDao {
     @Delete
     suspend fun deleteMeal(meal: Meal)
 
+    @Query("SELECT * FROM mealInfo WHERE idMeal = :id")
+    fun getFavoriteMeal(id: String?): LiveData<List<Meal>>
+
     @Query("SELECT * FROM mealInfo")
-    fun getSavedMeal(): Flow<List<Meal>>
+    fun getAllFavoriteMeal(): Flow<List<Meal>>
 }

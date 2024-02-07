@@ -29,12 +29,15 @@ import com.example.mealtoday.data.Meal
 import com.example.mealtoday.databinding.FragmentMealBinding
 import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.viewModel.MealViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -47,6 +50,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
     private lateinit var binding: FragmentMealBinding
     private lateinit var navController: NavController
     private var saveMeal: Meal? = null
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +96,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             .override(300, 300)
             .into(binding.mealImage)
     }
+
     private fun observeGetMealInfoData() {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
@@ -100,14 +105,26 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             binding.location.text = data.strArea
             binding.tvContent.text = data.strInstructions
             binding.videoButton.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube))
-                startActivity(intent)
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube)))
             }
-
-
+            mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {
+                isFavorite = if (it.isNotEmpty()) {
+                    setFavoriteLogo(true)
+                    true
+                } else {
+                    setFavoriteLogo(false)
+                    false
+                }
+            }
             binding.favoriteButton.setOnClickListener {
                 saveMeal?.let { meal ->
-                    mealViewModel.upsertMeal(meal)
+                    if (isFavorite) {
+                        setSnackBar("Favorite에서 삭제되었습니다")
+                        mealViewModel.deleteMeal(meal)
+                    } else {
+                        setSnackBar("Favorite에 추가되었습니다")
+                        mealViewModel.upsertMeal(meal)
+                    }
                 }
             }
         }
@@ -133,9 +150,24 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
                     PorterDuff.Mode.SRC_ATOP
                 )
             }
-
             binding.toolbar.navigationIcon?.colorFilter = colorFilter
         }
+    }
+
+    private fun setFavoriteLogo(isFavorite: Boolean) {
+        if(isFavorite) {
+            binding.favoriteButton.setImageDrawable(ContextCompat
+                .getDrawable(binding.favoriteButton.context, R.drawable.ic_favorite_fill))
+        } else {
+            binding.favoriteButton.setImageDrawable(ContextCompat
+                .getDrawable(binding.favoriteButton.context, R.drawable.ic_favorite))
+        }
+    }
+
+    private fun setSnackBar(result: String) {
+        Snackbar.make(binding.root, result, Snackbar.LENGTH_SHORT).apply {
+            animationMode = Snackbar.ANIMATION_MODE_FADE
+        }.show()
     }
 
     override fun onDestroy() {

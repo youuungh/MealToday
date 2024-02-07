@@ -43,11 +43,13 @@
                         android:layout_centerInParent="true"
                         android:layout_marginEnd="32dp"
                         android:fontFamily="@font/google_sans_regular"
-                        android:gravity="center"
-                        android:textAlignment="center"
+                        android:textAlignment="textEnd"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        tools:text="100" />
+                        android:maxEms="2"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        tools:text="0" />
 
                 </RelativeLayout>
 

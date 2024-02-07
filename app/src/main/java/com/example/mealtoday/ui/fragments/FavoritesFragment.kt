@@ -51,17 +51,17 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         setUpFavoriteRecyclerView()
         swipeToDelete(binding.rvFavorite)
-        getSavedData()
+        getFavoriteData()
     }
 
-    private fun getSavedData() {
+    private fun getFavoriteData() {
         lifecycleScope.launch {
-            mealViewModel.getSavedMeal().collect { savedData ->
-                favoriteAdapter.differ.submitList(savedData)
-                if (savedData.isNotEmpty()) {
+            mealViewModel.getAllFavoriteMeal().collect { favoriteData ->
+                favoriteAdapter.differ.submitList(favoriteData)
+                if (favoriteData.isNotEmpty()) {
                     binding.noDataContainer.isVisible = false
                     binding.tvItemCounts.isVisible = true
-                    binding.tvItemCounts.text = savedData.size.toString()
+                    binding.tvItemCounts.text = favoriteData.size.toString()
                 } else {
                     binding.noDataContainer.isVisible = true
                     binding.tvItemCounts.isVisible = false
@@ -86,7 +86,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 mealViewModel.deleteMeal(meal)
 
                 val snackBar = Snackbar.make(
-                    binding.root, "삭제됨", Snackbar.LENGTH_LONG
+                    binding.root, "항목 1개가 삭제됨", Snackbar.LENGTH_LONG
                 ).addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                         super.onDismissed(transientBottomBar, event)
