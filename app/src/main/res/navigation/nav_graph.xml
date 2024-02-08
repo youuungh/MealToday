@@ -24,9 +24,9 @@
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.mealtoday.ui.fragments.CategoriesFragment"
+        android:name="com.example.mealtoday.ui.fragments.MoreFragment"
         android:label="fragment_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_more" />
     <fragment
         android:id="@+id/mealFragment"
         android:name="com.example.mealtoday.ui.fragments.MealFragment"

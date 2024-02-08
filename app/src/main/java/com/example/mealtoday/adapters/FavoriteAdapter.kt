@@ -12,7 +12,7 @@ import com.example.mealtoday.data.Meal
 import com.example.mealtoday.databinding.ItemFavoriteBinding
 import eightbitlab.com.blurview.RenderEffectBlur
 
-class FavoriteAdapter(): RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
+class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
 
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {

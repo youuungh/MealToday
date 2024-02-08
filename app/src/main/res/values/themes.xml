@@ -37,14 +37,5 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="bottomNavigationText" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/google_sans_regular</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <style name="Theme.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/md_light_green_200</item>
-    </style>
-
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>
 </resources>

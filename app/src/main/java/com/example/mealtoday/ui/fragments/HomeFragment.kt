@@ -101,6 +101,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+
     private fun setUpHotRecyclerView() {
         binding.hotRecycler.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

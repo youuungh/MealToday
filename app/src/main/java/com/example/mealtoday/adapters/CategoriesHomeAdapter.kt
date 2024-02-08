@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.mealtoday.databinding.ItemCategoryBinding
 import com.example.mealtoday.data.Category
 
-class CategoriesHomeAdapter() : RecyclerView.Adapter<CategoriesHomeAdapter.ItemViewHolder>() {
+class CategoriesHomeAdapter: RecyclerView.Adapter<CategoriesHomeAdapter.ItemViewHolder>() {
 
     lateinit var onCategoryItemClick: ((Category) -> Unit)
 
