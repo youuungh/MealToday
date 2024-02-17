@@ -24,6 +24,7 @@ class HomeViewModel @Inject constructor(
     val getRandomMealLiveData : LiveData<Meal> = _getRandomMealLiveData
 
     private var saveStateRandomMeal: Meal? = null
+
     fun getRandomMeal() {
         saveStateRandomMeal?.let { randomMeal ->
             _getRandomMealLiveData.postValue(randomMeal)

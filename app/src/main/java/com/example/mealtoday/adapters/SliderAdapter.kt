@@ -3,6 +3,7 @@ package com.example.mealtoday.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.mealtoday.data.Hot
 import com.example.mealtoday.data.Slider
 import com.example.mealtoday.databinding.SliderLayoutBinding
+import com.example.mealtoday.ui.fragments.MoreFragment
 
 class SliderAdapter: RecyclerView.Adapter<SliderAdapter.ItemViewHolder>() {
 

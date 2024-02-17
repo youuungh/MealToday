@@ -28,8 +28,10 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
 
     private lateinit var binding: FragmentMoreBinding
     private lateinit var sliderAdapter: SliderAdapter
-    private lateinit var sliderList: ArrayList<Slider>
+    private var sliderList: ArrayList<Slider> = ArrayList()
     private val handler = Handler(Looper.myLooper()!!)
+
+    private var currentPagePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,28 +51,25 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         super.onViewCreated(view, savedInstanceState)
 
+        if (savedInstanceState != null) {
+            currentPagePosition = savedInstanceState.getInt("currentPagePosition", 0)
+        }
+
         getSliderMeal()
+        setUpTransformer()
     }
 
     private fun getSliderMeal() {
         moreViewModel.getSliderMeals()
         moreViewModel.getSliderMealLiveData.observe(viewLifecycleOwner) { data ->
-            sliderList = data
+            sliderList.clear()
+            sliderList.addAll(data)
+            //sliderList = data
             //sliderAdapter = SliderAdapter(sliderList)
             sliderAdapter.differ.submitList(sliderList)
             binding.viewPager.adapter = sliderAdapter
-            //binding.viewPager.offscreenPageLimit = 3
+            binding.viewPager.offscreenPageLimit = 3
             binding.viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-            val compositePageTransformer = CompositePageTransformer()
-            compositePageTransformer.addTransformer(MarginPageTransformer(40))
-
-            compositePageTransformer.addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85f + r * 0.15f
-            }
-
-            binding.viewPager.setPageTransformer(compositePageTransformer)
             binding.viewPager.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -82,21 +81,39 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
                     }
                 }
             })
+            binding.viewPager.setCurrentItem(currentPagePosition, false)
         }
     }
 
-    val sliderRunnable = Runnable {
+    private fun setUpTransformer() {
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(40))
+
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.15f
+        }
+        binding.viewPager.setPageTransformer(compositePageTransformer)
+    }
+
+    private val sliderRunnable = Runnable {
         binding.viewPager.currentItem = binding.viewPager.currentItem + 1
     }
 
-    val runnable = Runnable {
+    private val runnable = Runnable {
         sliderList.addAll(sliderList)
         sliderAdapter.notifyDataSetChanged()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("currentPagePosition", currentPagePosition)
     }
 
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(runnable)
+        currentPagePosition = binding.viewPager.currentItem
     }
 
     override fun onResume() {
