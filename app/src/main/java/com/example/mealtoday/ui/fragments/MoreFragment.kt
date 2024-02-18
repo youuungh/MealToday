@@ -13,10 +13,12 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mealtoday.R
+import com.example.mealtoday.adapters.DailyFragmentAdapter
 import com.example.mealtoday.adapters.SliderAdapter
 import com.example.mealtoday.data.Slider
 import com.example.mealtoday.databinding.FragmentMoreBinding
 import com.example.mealtoday.viewModel.MoreViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
@@ -28,14 +30,15 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
 
     private lateinit var binding: FragmentMoreBinding
     private lateinit var sliderAdapter: SliderAdapter
+    private lateinit var dailyAdapter: DailyFragmentAdapter
     private var sliderList: ArrayList<Slider> = ArrayList()
     private val handler = Handler(Looper.myLooper()!!)
-
     private var currentPagePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sliderAdapter = SliderAdapter()
+        dailyAdapter = DailyFragmentAdapter(this)
     }
 
     override fun onCreateView(
@@ -51,20 +54,15 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState != null) {
-            currentPagePosition = savedInstanceState.getInt("currentPagePosition", 0)
-        }
-
         getSliderMeal()
         setUpTransformer()
+        setUpDailyMeal()
     }
 
     private fun getSliderMeal() {
         moreViewModel.getSliderMeals()
         moreViewModel.getSliderMealLiveData.observe(viewLifecycleOwner) { data ->
-            sliderList.clear()
-            sliderList.addAll(data)
-            //sliderList = data
+            sliderList = data
             //sliderAdapter = SliderAdapter(sliderList)
             sliderAdapter.differ.submitList(sliderList)
             binding.viewPager.adapter = sliderAdapter
@@ -96,6 +94,16 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         binding.viewPager.setPageTransformer(compositePageTransformer)
     }
 
+    private fun setUpDailyMeal() {
+        binding.apply {
+            val daysOfWeek = arrayOf("월", "화", "수", "목", "금", "토", "일")
+            tabViewPager.adapter = dailyAdapter
+            TabLayoutMediator(tabLayout, tabViewPager) { tab, position ->
+                tab.text = daysOfWeek[position]
+            }.attach()
+        }
+    }
+
     private val sliderRunnable = Runnable {
         binding.viewPager.currentItem = binding.viewPager.currentItem + 1
     }
@@ -105,15 +113,9 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         sliderAdapter.notifyDataSetChanged()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("currentPagePosition", currentPagePosition)
-    }
-
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(runnable)
-        currentPagePosition = binding.viewPager.currentItem
     }
 
     override fun onResume() {

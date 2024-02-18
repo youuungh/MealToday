@@ -37,5 +37,10 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="tabText" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>
 </resources>
