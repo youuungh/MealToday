@@ -5,8 +5,12 @@ import com.example.mealtoday.data.HotList
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
-class CategoryRepository @Inject constructor(private val mealApi: MealApi) {
+class CategoryRepository @Inject constructor(
+    @Named("mealApi")
+    private val mealApi: MealApi
+) {
 
     suspend fun getCategory(categoryName: String): Response<HotList> {
         val response = mealApi.getCategory(categoryName)

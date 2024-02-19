@@ -38,6 +38,7 @@ class HotAdapter: RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val data = differ.currentList[position]
+
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
             .override(300, 300)

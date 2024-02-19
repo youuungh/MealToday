@@ -3,6 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="select">@color/md_blue_grey_100</color>
+    <color name="unselect">@android:color/transparent</color>
+
     <color name="md_theme_light_primary">#646100</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#ECE76D</color>

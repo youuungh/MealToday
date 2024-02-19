@@ -3,6 +3,7 @@ package com.example.mealtoday.ui.di
 import android.app.Application
 import androidx.room.Room
 import com.example.mealtoday.db.MealDatabase
+import com.example.mealtoday.network.CockTailApi
 import com.example.mealtoday.network.MealApi
 import dagger.Module
 import dagger.Provides
@@ -11,6 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -18,11 +20,21 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideApi(): MealApi = Retrofit.Builder()
+    @Named("mealApi")
+    fun provideMealApi(): MealApi = Retrofit.Builder()
         .baseUrl("https://www.themealdb.com/api/json/v1/1/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(MealApi::class.java)
+
+    @Provides
+    @Singleton
+    @Named("cockTailApi")
+    fun provideCockTailApi(): CockTailApi = Retrofit.Builder()
+        .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(CockTailApi::class.java)
 
     @Provides
     @Singleton

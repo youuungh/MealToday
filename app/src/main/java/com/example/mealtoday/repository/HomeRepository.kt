@@ -7,8 +7,12 @@ import com.example.mealtoday.data.MealList
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
 import javax.inject.Inject
+import javax.inject.Named
 
-class HomeRepository @Inject constructor(private val mealApi: MealApi) {
+class HomeRepository @Inject constructor(
+    @Named("mealApi")
+    private val mealApi: MealApi
+) {
     suspend fun getRandomMeal(): Response<MealList> {
         val response = mealApi.getRandomMeal()
         if (response.isSuccessful) {

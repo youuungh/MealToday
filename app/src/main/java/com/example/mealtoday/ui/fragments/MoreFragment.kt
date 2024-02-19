@@ -50,8 +50,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
-        reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+        enterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
+        reenterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
         super.onViewCreated(view, savedInstanceState)
 
         getSliderMeal()

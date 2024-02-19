@@ -38,7 +38,8 @@
     </style>
 
     <style name="tabText" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:fontFamily">@font/google_sans_regular</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>
 

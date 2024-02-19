@@ -1,119 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/contentContainer"
-    tools:context=".ui.fragments.MoreFragment">
+    android:id="@+id/coordinator">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:layout_height="?actionBarSize">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/appBarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/google_sans_bold"
+                android:text="More"
+                android:textSize="22sp" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize">
+                android:layout_height="200dp"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/appBarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/google_sans_bold"
-                    android:text="More"
-                    android:textSize="22sp" />
+            <TextView
+                android:id="@+id/tvDailyCommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:fontFamily="@font/google_sans_bold"
+                android:text="요일별 추천 음료"
+                android:textSize="22sp"
+                app:layout_constraintTop_toBottomOf="@id/viewPager"
+                app:layout_constraintStart_toStartOf="@id/start"/>
 
-            </com.google.android.material.appbar.MaterialToolbar>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.04"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/tvDailyCommend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:fontFamily="@font/google_sans_bold"
-                    android:text="요일별 추천"
-                    android:textSize="22sp"
-                    app:layout_constraintTop_toBottomOf="@id/viewPager"
-                    app:layout_constraintStart_toStartOf="@id/start"/>
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.04"/>
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.96"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                app:tabPaddingStart="8dp"
+                app:tabPaddingEnd="8dp"
                 app:tabTextAppearance="@style/tabText"
-                app:tabUnboundedRipple="true"
+                app:tabRippleColor="@null"
                 app:tabIndicator="@null"
+                app:tabIndicatorHeight="0dp"
+                app:tabBackground="@drawable/custom_tab_inset"
                 app:tabMode="fixed"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@id/tvDailyCommend"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/scrollView"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/tabViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </androidx.core.widget.NestedScrollView>
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/tabViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

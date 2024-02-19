@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
@@ -27,7 +28,7 @@ class CategoryViewModel @Inject constructor(
                     _categoryStateFlow.emit(response.body()!!.meals)
                 }
             } catch (t:Throwable) {
-                Log.d("TAG", t.message.toString())
+                Log.d("TAG", t.message.toString() + "Category 에러")
             }
         }
     }
