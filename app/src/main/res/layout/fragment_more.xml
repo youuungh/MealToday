@@ -11,24 +11,25 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="snap|scroll|exitUntilCollapsed">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/appBarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/google_sans_bold"
-                android:text="More"
-                android:textSize="22sp" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize">
 
-        </com.google.android.material.appbar.MaterialToolbar>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/appBarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/google_sans_bold"
+                    android:text="More"
+                    android:textSize="22sp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
@@ -37,69 +38,54 @@
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:clipChildren="false"
-                android:clipToPadding="false"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                android:id="@+id/tvDailyCommend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:fontFamily="@font/google_sans_bold"
-                android:text="요일별 추천 음료"
-                android:textSize="22sp"
-                app:layout_constraintTop_toBottomOf="@id/viewPager"
-                app:layout_constraintStart_toStartOf="@id/start"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.04"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.96"/>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@null"
-                app:tabPaddingStart="8dp"
-                app:tabPaddingEnd="8dp"
-                app:tabTextAppearance="@style/tabText"
-                app:tabRippleColor="@null"
-                app:tabIndicator="@null"
-                app:tabIndicatorHeight="0dp"
-                app:tabBackground="@drawable/custom_tab_inset"
-                app:tabMode="fixed"
-                android:clipToPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/tvDailyCommend"
-                app:layout_scrollFlags="scroll|enterAlways"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/tabViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipChildren="false"
                 android:clipToPadding="false"/>
 
-        </androidx.core.widget.NestedScrollView>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/tvDailyCommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:fontFamily="@font/google_sans_bold"
+            android:text="요일별 추천 음료"
+            android:textSize="22sp"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            app:tabPaddingStart="8dp"
+            app:tabPaddingEnd="8dp"
+            app:tabTextAppearance="@style/tabText"
+            app:tabRippleColor="@null"
+            app:tabIndicator="@null"
+            app:tabIndicatorHeight="0dp"
+            app:tabBackground="@drawable/custom_tab_inset"
+            app:tabMode="fixed"
+            android:clipToPadding="false"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/tabViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"/>
+
+    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

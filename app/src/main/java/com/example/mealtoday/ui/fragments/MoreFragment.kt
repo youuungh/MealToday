@@ -1,19 +1,21 @@
 package com.example.mealtoday.ui.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mealtoday.R
-import com.example.mealtoday.adapters.DailyFragmentAdapter
 import com.example.mealtoday.adapters.SliderAdapter
 import com.example.mealtoday.data.Slider
 import com.example.mealtoday.databinding.FragmentMoreBinding
@@ -21,6 +23,7 @@ import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import eightbitlab.com.blurview.RenderEffectBlur
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -49,6 +52,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         enterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
         reenterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
@@ -57,6 +61,10 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         getSliderMeal()
         setUpTransformer()
         setUpDailyMeal()
+
+//        binding.tabLayout.apply {
+//            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+//        }
     }
 
     private fun getSliderMeal() {
@@ -95,12 +103,21 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     private fun setUpDailyMeal() {
-        binding.apply {
+        binding.tabViewPager.apply {
             val daysOfWeek = arrayOf("월", "화", "수", "목", "금", "토", "일")
-            tabViewPager.adapter = dailyAdapter
-            TabLayoutMediator(tabLayout, tabViewPager) { tab, position ->
+            adapter = dailyAdapter
+            TabLayoutMediator(binding.tabLayout, binding.tabViewPager) { tab, position ->
                 tab.text = daysOfWeek[position]
             }.attach()
+        }
+    }
+
+    class DailyFragmentAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+
+        override fun getItemCount(): Int = 7
+
+        override fun createFragment(position: Int): Fragment {
+            return DailyDrinkFragment.newInstance(position)
         }
     }
 

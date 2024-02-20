@@ -14,6 +14,7 @@ import com.example.mealtoday.adapters.DrinkAdapter
 import com.example.mealtoday.databinding.FragmentDailyDrinkBinding
 import com.example.mealtoday.viewModel.MoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -61,6 +62,42 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
         when (arguments?.getInt(ARG_DAY_INDEX) ?: 0) {
             0 -> lifecycleScope.launch {
                 moreViewModel.getDrinks(cockTailList[0])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            1 -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[1])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            2 -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[2])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            3 -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[3])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            4 -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[4])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            5 -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[5])
+                moreViewModel.drinkStateFlow.collect { data ->
+                    drinkAdapter.differ.submitList(data)
+                }
+            }
+            else -> lifecycleScope.launch {
+                moreViewModel.getDrinks(cockTailList[6])
                 moreViewModel.drinkStateFlow.collect { data ->
                     drinkAdapter.differ.submitList(data)
                 }

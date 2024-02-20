@@ -36,6 +36,7 @@ class DrinkAdapter: RecyclerView.Adapter<DrinkAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strDrinkThumb)
+            .override(150, 150)
             .into(holder.binding.drinkImage)
     }
 }
