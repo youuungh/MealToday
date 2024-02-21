@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +21,10 @@ import com.example.mealtoday.adapters.SliderAdapter
 import com.example.mealtoday.data.Slider
 import com.example.mealtoday.databinding.FragmentMoreBinding
 import com.example.mealtoday.viewModel.MoreViewModel
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
-import eightbitlab.com.blurview.RenderEffectBlur
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -95,10 +96,10 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer(40))
 
-        compositePageTransformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = 0.85f + r * 0.15f
-        }
+//        compositePageTransformer.addTransformer { page, position ->
+//            val r = 1 - abs(position)
+//            page.scaleY = 0.85f + r * 0.15f
+//        }
         binding.viewPager.setPageTransformer(compositePageTransformer)
     }
 

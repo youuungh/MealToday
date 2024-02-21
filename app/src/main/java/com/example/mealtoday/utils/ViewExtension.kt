@@ -1,16 +1,17 @@
 package com.example.mealtoday.utils
 
 import android.animation.ValueAnimator
+import android.content.Context
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
+import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isGone
@@ -19,9 +20,11 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
+import com.google.android.material.tabs.TabLayout
 
 const val ANIM_DURATION_SHOW = 400L
 const val ANIM_DURATION_HIDE = 300L
