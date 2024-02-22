@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -14,7 +13,8 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
+            android:layout_height="?actionBarSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/appBarTitle"
@@ -28,19 +28,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.appbar.CollapsingToolbarLayout
+    <com.amar.library.ui.StickyScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:stickyHeader="@id/tab"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -54,21 +56,27 @@
 
                 <TextView
                     android:id="@+id/tvDailyCommend"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
                     android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:fontFamily="@font/google_sans_bold"
                     android:text="요일별 추천 음료"
                     android:textSize="22sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@null"
                     app:tabPaddingStart="8dp"
                     app:tabPaddingEnd="8dp"
                     app:tabTextAppearance="@style/tabText"
@@ -77,20 +85,27 @@
                     app:tabIndicatorHeight="0dp"
                     app:tabBackground="@drawable/custom_tab_inset"
                     app:tabMode="fixed"
-                    android:clipToPadding="false" />
+                    android:clipToPadding="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/tabViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipChildren="false"
-                    android:clipToPadding="false" />
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="true"/>
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
 
-    </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.amar.library.ui.StickyScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

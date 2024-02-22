@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.data.Drink
 import com.example.mealtoday.databinding.ItemDrinkBinding
 
@@ -36,7 +37,20 @@ class DrinkAdapter: RecyclerView.Adapter<DrinkAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strDrinkThumb)
-            .override(150, 150)
+            .override(200, 200)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .skipMemoryCache(false)
             .into(holder.binding.drinkImage)
+
+        if (position < differ.currentList.size - 1) {
+            val nextData = differ.currentList[position + 1]
+            Glide.with(holder.itemView.context)
+                .load(nextData.strDrinkThumb)
+                .preload()
+        }
+
+        holder.apply {
+            holder.binding.drinkTitle.text = data.strDrink
+        }
     }
 }

@@ -35,6 +35,7 @@
         android:layout_below="@id/cvCategory"
         android:layout_centerInParent="true"
         android:fontFamily="@font/google_sans_regular"
-        android:text="제목" />
+        android:text="제목"
+        android:textStyle="bold"/>
 
 </RelativeLayout>
