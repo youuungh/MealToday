@@ -7,9 +7,12 @@ import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd
+import androidx.core.content.getSystemService
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,7 +29,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.tabs.TabLayout
 
-const val ANIM_DURATION_SHOW = 400L
+const val ANIM_DURATION_SHOW = 600L
 const val ANIM_DURATION_HIDE = 300L
 
 fun View.doOnApplyWindowInsets(windowInsetsListener: (insetView: View, windowInsets: WindowInsetsCompat,
@@ -118,5 +121,41 @@ fun NavigationBarView.hide() {
             parent.overlay.remove(drawable)
         }
         start()
+    }
+}
+
+fun View.focusAndShowKeyboard() {
+    /**
+     * This is to be called when the window already has focus.
+     */
+    fun View.showTheKeyboardNow() {
+        if (isFocused) {
+            post {
+                // We still post the call, just in case we are being notified of the windows focus
+                // but InputMethodManager didn't get properly setup yet.
+                val imm =
+                    context.getSystemService<InputMethodManager>()
+                imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
+    }
+
+    requestFocus()
+    if (hasWindowFocus()) {
+        // No need to wait for the window to get focus.
+        showTheKeyboardNow()
+    } else {
+        // We need to wait until the window gets focus.
+        viewTreeObserver.addOnWindowFocusChangeListener(
+            object : ViewTreeObserver.OnWindowFocusChangeListener {
+                override fun onWindowFocusChanged(hasFocus: Boolean) {
+                    // This notification will arrive just before the InputMethodManager gets set up.
+                    if (hasFocus) {
+                        this@focusAndShowKeyboard.showTheKeyboardNow()
+                        // It’s very important to remove this listener once we are done.
+                        viewTreeObserver.removeOnWindowFocusChangeListener(this)
+                    }
+                }
+            })
     }
 }

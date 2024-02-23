@@ -37,12 +37,36 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="tabText" parent="TextAppearance.Design.Tab">
+    <style name="Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="popupTheme">?toolbarPopupTheme</item>
+        <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
+        <item name="layout_collapseMode">pin</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="titleMarginStart">16dp</item>
+    </style>
+
+    <style name="ToolbarTextAppearanceNormal">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">0.0125</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TabText" parent="TextAppearance.Design.Tab">
         <item name="android:fontFamily">@font/google_sans_regular</item>
         <item name="android:shadowColor">@color/white</item>
         <item name="android:shadowRadius">8</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewHeadline" parent="TextAppearance.MaterialComponents.Headline6"/>
+
+    <style name="TextViewSubtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/google_sans_regular</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>

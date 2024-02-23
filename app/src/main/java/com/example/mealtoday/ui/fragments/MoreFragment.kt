@@ -59,8 +59,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
-        reenterTransition = MaterialFadeThrough().addTarget(binding.coordinator)
+        enterTransition = MaterialFadeThrough().addTarget(view)
+        reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
         getSliderMeal()
@@ -98,10 +98,10 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer(40))
 
-        compositePageTransformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = 0.85f + r * 0.15f
-        }
+//        compositePageTransformer.addTransformer { page, position ->
+//            val r = 1 - abs(position)
+//            page.scaleY = 0.85f + r * 0.15f
+//        }
         binding.viewPager.setPageTransformer(compositePageTransformer)
     }
 

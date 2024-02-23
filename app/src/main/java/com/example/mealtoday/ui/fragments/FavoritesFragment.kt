@@ -45,8 +45,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
-        reenterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
+        enterTransition = MaterialFadeThrough().addTarget(view)
+        reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
         setUpFavoriteRecyclerView()

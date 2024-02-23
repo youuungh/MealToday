@@ -9,4 +9,5 @@ interface CockTailApi {
 
     @GET("filter.php")
     suspend fun getDrinks(@Query("c") drinkName: String): Response<DrinkList>
+
 }

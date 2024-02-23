@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MealApi {
+
     @GET("random.php")
     suspend fun getRandomMeal(): Response<MealList>
 
@@ -26,4 +27,8 @@ interface MealApi {
 
     @GET("filter.php")
     suspend fun getSliderMeals(@Query("a") categoryName: String): Response<SliderList>
+
+    @GET("search.php")
+    suspend fun getSearchMeals(@Query("s") searchQuery: String): Response<MealList>
+
 }

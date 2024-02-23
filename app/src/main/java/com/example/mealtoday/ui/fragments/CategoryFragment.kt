@@ -50,8 +50,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(binding.root)
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(binding.root)
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(view)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)

@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     app:tabPaddingStart="8dp"
                     app:tabPaddingEnd="8dp"
-                    app:tabTextAppearance="@style/tabText"
+                    app:tabTextAppearance="@style/TabText"
                     app:tabRippleColor="@null"
                     app:tabIndicator="@null"
                     app:tabIndicatorHeight="0dp"

@@ -56,10 +56,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-        enterTransition = MaterialFadeThrough().addTarget(binding.contentContainer)
-        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(binding.contentContainer)
-        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(binding.contentContainer)
+        view.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
+        enterTransition = MaterialFadeThrough().addTarget(view)
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(view)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
         getRandomMeal()
@@ -69,6 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getCategories()
         setUpCategoriesRecyclerView()
         onCategoryItemClick()
+        onSearchClick()
 
         requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
             insetView.updatePadding(
@@ -146,6 +149,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment(
                 data.strCategory
             ))
+        }
+    }
+
+    private fun onSearchClick() {
+        binding.search.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
         }
     }
 }
