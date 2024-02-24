@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mealtoday.data.Meal
 import com.example.mealtoday.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,12 +20,15 @@ class SearchViewModel @Inject constructor(
     private val _getSearchMealLiveData = MutableLiveData<List<Meal>>()
     val getSearchMealLiveData: LiveData<List<Meal>> = _getSearchMealLiveData
 
+    private var searchJob: Job? = null
+
     fun getSearchMeal(searchQuery: String) {
-        viewModelScope.launch() {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch() {
             try {
                 val response = searchRepository.getSearchMeal(searchQuery)
                 if (response.isSuccessful) {
-                    _getSearchMealLiveData.value = response.body()!!.meals
+                    _getSearchMealLiveData.value = response.body()?.meals ?: emptyList()
                 }
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "SearchMeal 에러")

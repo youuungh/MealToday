@@ -50,7 +50,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var navController: NavController
     private lateinit var searchAdapter: SearchAdapter
     private var query: String? = null
-    private var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,14 +101,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         this.query = query
         TransitionManager.beginDelayedTransition(binding.appBarLayout)
         binding.clearText.isVisible = query.isNotEmpty()
-        job?.cancel()
-        job = lifecycleScope.launch(Dispatchers.IO) {
-            searchViewModel.getSearchMeal(query)
-        }
+        searchViewModel.getSearchMeal(query)
     }
 
     private fun observeSearchMealData() {
         searchViewModel.getSearchMealLiveData.observe(viewLifecycleOwner) { data ->
+            binding.empty.isVisible = data.isEmpty()
             searchAdapter.differ.submitList(data)
         }
     }
@@ -134,7 +131,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun clearText() {
         binding.clearText.setOnClickListener {
             binding.tvSearch.clearText()
-            //searchViewModel.clearSearchResult()
+            searchViewModel.clearSearchResult()
         }
     }
 

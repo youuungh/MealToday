@@ -1,8 +1,7 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/coordinator">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -13,8 +12,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="?actionBarSize">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/appBarTitle"
@@ -28,84 +26,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.amar.library.ui.StickyScrollView
-        android:id="@+id/scrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMore"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:stickyHeader="@id/tab"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:clipChildren="false"
-                    android:clipToPadding="false" />
-
-                <TextView
-                    android:id="@+id/tvDailyCommend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:fontFamily="@font/google_sans_bold"
-                    android:text="요일별 추천 음료"
-                    android:textSize="22sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabPaddingStart="8dp"
-                    app:tabPaddingEnd="8dp"
-                    app:tabTextAppearance="@style/TabText"
-                    app:tabRippleColor="@null"
-                    app:tabIndicator="@null"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabBackground="@drawable/custom_tab_inset"
-                    app:tabMode="fixed"
-                    android:clipToPadding="false"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/tabViewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="true"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </com.amar.library.ui.StickyScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
 
