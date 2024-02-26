@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mealtoday.R
-import com.example.mealtoday.data.MoreAdapterData
-import com.example.mealtoday.data.MoreAdapterItem
+import com.example.mealtoday.data.MoreItem
 import com.example.mealtoday.data.Slider
 import com.example.mealtoday.databinding.MoreFooterBinding
 import com.example.mealtoday.databinding.MoreHeaderBinding
@@ -19,16 +18,18 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MoreAdapter(private val activity: FragmentActivity, private var sliderList: ArrayList<Slider>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val rvItemList = arrayListOf<MoreAdapterItem>()
-
-    init {
-        setListData()
-    }
+    private val rvItemList = arrayListOf<MoreItem>()
+    private var tabViewPager: ViewPager2? = null
+    private var tabLayout: TabLayout? = null
 
     companion object {
         private const val HEADER = 0
         private const val STICKY = 1
         private const val FOOTER = 2
+    }
+
+    init {
+        setListData()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -41,9 +42,9 @@ class MoreAdapter(private val activity: FragmentActivity, private var sliderList
 
     private fun setListData() {
         rvItemList.clear()
-        rvItemList.add(MoreAdapterItem(HEADER, MoreAdapterData("")))
-        rvItemList.add(MoreAdapterItem(STICKY, MoreAdapterData("")))
-        rvItemList.add(MoreAdapterItem(FOOTER, MoreAdapterData("")))
+        rvItemList.add(MoreItem(HEADER))
+        rvItemList.add(MoreItem(STICKY))
+        rvItemList.add(MoreItem(FOOTER))
         notifyDataSetChanged()
     }
 
@@ -62,14 +63,20 @@ class MoreAdapter(private val activity: FragmentActivity, private var sliderList
 
     inner class StickyViewHolder(val binding: MoreStickyBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            val daysOfWeek = arrayOf("월", "화", "수", "목", "금", "토", "일")
+            tabLayout = binding.tabLayout
         }
     }
 
     inner class FooterViewHolder(val binding: MoreFooterBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.tabViewPager.apply {
+            val daysOfWeek = arrayOf("월", "화", "수", "목", "금", "토", "일")
+
+            tabViewPager = binding.tabViewPager
+            tabViewPager?.apply {
                 adapter = DailyStateAdapter(activity)
+                TabLayoutMediator(tabLayout!!, this) { tab, position ->
+                    tab.text = daysOfWeek[position]
+                }.attach()
             }
         }
     }

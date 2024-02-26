@@ -29,11 +29,12 @@ class StickyItemDecoration(private val sectionCallback: SectionCallback): Recycl
             return
         }
 
-        if (sectionCallback.isHeader(childAdapterPosition)) {
-            moveHeader(c, currentHeader, childInContact)
-            return
+        when {
+            sectionCallback.isHeader(childAdapterPosition) ->
+                moveHeader(c, currentHeader, childInContact)
+            else ->
+                drawHeader(c, currentHeader)
         }
-        drawHeader(c, currentHeader)
     }
 
     private fun getChildInContact(parent: RecyclerView, contactPoint: Int): View? {
