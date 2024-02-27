@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.mealtoday.ui.fragments.DailyDrinkFragment
 
-class DailyStateAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+class DailyStateAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 7
 

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,9 +14,7 @@ import com.example.mealtoday.adapters.DrinkAdapter
 import com.example.mealtoday.databinding.FragmentDailyDrinkBinding
 import com.example.mealtoday.viewModel.MoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.math.ceil
 
 @AndroidEntryPoint
 class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
@@ -61,7 +58,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
 
     private fun getDrinkInfo() {
         val dayIndex = arguments?.getInt(ARG_DAY_INDEX) ?: 0
-        val cocktailList = arrayOf("Ordinary Drink", "Cocktail", "Shake", "Cocoa", "Shot", "Beer", "Soft Drink")
+        val cocktailList = arrayOf("Punch / Party Drink", "Cocktail", "Shake", "Homemade Liqueur", "Shot", "Beer", "Soft Drink")
         val cocktail = if (dayIndex in cocktailList.indices) cocktailList[dayIndex] else cocktailList.last()
 
         lifecycleScope.launch {
@@ -73,7 +70,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
     }
 
     private fun setUpDrinkRecyclerView() {
-        binding.rvDaily.apply {
+        with(binding.rvDaily) {
             layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
             adapter = drinkAdapter
         }
