@@ -2,7 +2,7 @@ package com.example.mealtoday.repository
 
 import android.util.Log
 import com.example.mealtoday.data.DrinkList
-import com.example.mealtoday.data.SliderList
+import com.example.mealtoday.data.BannerList
 import com.example.mealtoday.network.CockTailApi
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
@@ -16,13 +16,13 @@ class MoreRepository @Inject constructor(
     private val cockTailApi: CockTailApi
 ) {
 
-    suspend fun getSliderMeal(categoryName: String): Response<SliderList> {
-        val response = mealApi.getSliderMeals(categoryName)
+    suspend fun getBannerMeal(categoryName: String): Response<BannerList> {
+        val response = mealApi.getBannerMeals(categoryName)
         if (response.isSuccessful) {
-            Log.d("TAG", "SliderMeal 연결 성공")
+            Log.d("TAG", "BannerMeal 연결 성공")
             Log.d("TAG", response.code().toString())
         } else {
-            Log.d("TAG", "SliderMeal 연결 실패")
+            Log.d("TAG", "BannerMeal 연결 실패")
             Log.d("TAG", response.code().toString())
         }
         return response

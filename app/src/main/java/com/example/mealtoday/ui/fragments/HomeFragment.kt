@@ -104,6 +104,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    private fun getHotMeal() {
+        homeViewModel.getHotMeals()
+        homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
+            hotAdapter.differ.submitList(data)
+        }
+    }
 
     private fun setUpHotRecyclerView() {
         binding.hotRecycler.apply {
@@ -120,13 +126,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //            )
 //        }
 //    }
-
-    private fun getHotMeal() {
-        homeViewModel.getHotMeals()
-        homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
-            hotAdapter.differ.submitList(data)
-        }
-    }
 
     private fun getCategories() {
         homeViewModel.getCategoriesHomeFragment()

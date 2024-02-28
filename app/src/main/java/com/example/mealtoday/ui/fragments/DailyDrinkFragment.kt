@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mealtoday.R
-import com.example.mealtoday.adapters.DrinkAdapter
+import com.example.mealtoday.adapters.CockTailAdapter
 import com.example.mealtoday.databinding.FragmentDailyDrinkBinding
 import com.example.mealtoday.viewModel.MoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
     private val moreViewModel: MoreViewModel by viewModels()
 
     private lateinit var binding: FragmentDailyDrinkBinding
-    private lateinit var drinkAdapter: DrinkAdapter
+    private lateinit var cockTailAdapter: CockTailAdapter
 
     companion object {
         private const val ARG_DAY_INDEX = "dayIndex"
@@ -38,7 +38,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        drinkAdapter = DrinkAdapter()
+        cockTailAdapter = CockTailAdapter()
     }
 
     override fun onCreateView(
@@ -64,7 +64,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
         lifecycleScope.launch {
             moreViewModel.getDrinks(cocktail)
             moreViewModel.drinkStateFlow.collect { data ->
-                drinkAdapter.differ.submitList(data)
+                cockTailAdapter.differ.submitList(data)
             }
         }
     }
@@ -72,7 +72,7 @@ class DailyDrinkFragment : Fragment(R.layout.fragment_daily_drink) {
     private fun setUpDrinkRecyclerView() {
         with(binding.rvDaily) {
             layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
-            adapter = drinkAdapter
+            adapter = cockTailAdapter
         }
     }
 }
