@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mealtoday.data.Drink
 import com.example.mealtoday.data.Banner
+import com.example.mealtoday.data.Beverage
+import com.example.mealtoday.data.Cocktail
+import com.example.mealtoday.data.Drink
 import com.example.mealtoday.repository.MoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,19 +39,54 @@ class MoreViewModel @Inject constructor(
         }
     }
 
-    private val _drinkStateFlow = MutableStateFlow<List<Drink>>(emptyList())
-    val  drinkStateFlow: StateFlow<List<Drink>> = _drinkStateFlow
+    private val _cocktailStateFlow = MutableStateFlow<List<Cocktail>>(emptyList())
+    val cocktailStateFlow: StateFlow<List<Cocktail>> = _cocktailStateFlow
 
-    fun getDrinks(drinkName: String) {
+    fun getCocktails(cocktailName: String) {
         viewModelScope.launch {
             try {
-                val response = moreRepository.getDrinks(drinkName)
+                val response = moreRepository.getCocktails(cocktailName)
                 if (response.isSuccessful) {
-                    _drinkStateFlow.emit(response.body()!!.drinks)
+                    _cocktailStateFlow.emit(response.body()!!.drinks)
                 }
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "CockTail 에러")
             }
         }
     }
+
+    private val _getDrinkMealLiveData = MutableLiveData<List<Drink>>()
+    val getDrinkMealLiveData: LiveData<List<Drink>> = _getDrinkMealLiveData
+
+    fun getDrinks() {
+        viewModelScope.launch {
+            try {
+                val response = moreRepository.getDrinks("a")
+                if (response.isSuccessful) {
+                    response.body()?.drinks?.let {
+                        _getDrinkMealLiveData.postValue(it)
+                    }
+                }
+            } catch (t:Throwable) {
+                Log.d("TAG", t.message.toString() + "Drink 에러")
+            }
+        }
+    }
+
+    private val _getBeverageInfoLiveData = MutableLiveData<Beverage>()
+    val getBeverageInfoLiveData: LiveData<Beverage> = _getBeverageInfoLiveData
+
+    fun getBeverageInfo(beverageId: String) {
+        viewModelScope.launch {
+            try {
+                val response = moreRepository.getBeverageInfo(beverageId)
+                if (response.isSuccessful) {
+                    _getBeverageInfoLiveData.value = response.body()!!.drinks[0]
+                }
+            } catch (t:Throwable) {
+                Log.d("TAG", t.message.toString() + "BeverageInfo 에러")
+            }
+        }
+    }
+
 }

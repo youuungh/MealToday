@@ -1,8 +1,10 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
-import com.example.mealtoday.data.DrinkList
 import com.example.mealtoday.data.BannerList
+import com.example.mealtoday.data.BeverageList
+import com.example.mealtoday.data.CocktailList
+import com.example.mealtoday.data.DrinkList
 import com.example.mealtoday.network.CockTailApi
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
@@ -28,13 +30,37 @@ class MoreRepository @Inject constructor(
         return response
     }
 
-    suspend fun getDrinks(drinkName: String): Response<DrinkList> {
-        val response = cockTailApi.getDrinks(drinkName)
+    suspend fun getCocktails(cocktailName: String): Response<CocktailList> {
+        val response = cockTailApi.getCocktails(cocktailName)
         if (response.isSuccessful) {
             Log.d("TAG", "CockTail 연결 성공")
             Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "CockTail 연결 실패")
+            Log.d("TAG", response.code().toString())
+        }
+        return response
+    }
+
+    suspend fun getDrinks(drinkName: String): Response<DrinkList> {
+        val response = cockTailApi.getDrinks(drinkName)
+        if (response.isSuccessful) {
+            Log.d("TAG", "Drinks 연결 성공")
+            Log.d("TAG", response.code().toString())
+        } else {
+            Log.d("TAG", "Drinks 연결 실패")
+            Log.d("TAG", response.code().toString())
+        }
+        return response
+    }
+
+    suspend fun getBeverageInfo(beverageId: String): Response<BeverageList> {
+        val response = cockTailApi.getBeverageInfo(beverageId)
+        if (response.isSuccessful) {
+            Log.d("TAG", "DrinkInfo 연결 성공")
+            Log.d("TAG", response.code().toString())
+        } else {
+            Log.d("TAG", "DrinkInfo 연결 실패")
             Log.d("TAG", response.code().toString())
         }
         return response

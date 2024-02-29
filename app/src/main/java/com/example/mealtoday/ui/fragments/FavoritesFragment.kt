@@ -49,12 +49,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        setUpFavoriteRecyclerView()
+        setUpFavorite()
         swipeToDelete(binding.rvFavorite)
-        getFavoriteData()
     }
 
-    private fun getFavoriteData() {
+    private fun setUpFavorite() {
         lifecycleScope.launch {
             mealViewModel.getAllFavoriteMeal().collect { favoriteData ->
                 favoriteAdapter.differ.submitList(favoriteData)
@@ -68,10 +67,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 }
             }
         }
-    }
 
-    private fun setUpFavoriteRecyclerView() {
-        binding.rvFavorite.apply {
+        with(binding.rvFavorite) {
             layoutManager = LinearLayoutManager(context)
             adapter = favoriteAdapter
             setHasFixedSize(true)

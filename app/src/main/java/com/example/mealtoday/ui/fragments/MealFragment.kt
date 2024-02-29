@@ -85,7 +85,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
 
         setAppBarOffset(activity)
         getMealInfo()
-        observeGetMealInfoData()
+        observeMealInfoData()
     }
 
     private fun getMealInfo() {
@@ -97,7 +97,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             .into(binding.mealImage)
     }
 
-    private fun observeGetMealInfoData() {
+    private fun observeMealInfoData() {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data

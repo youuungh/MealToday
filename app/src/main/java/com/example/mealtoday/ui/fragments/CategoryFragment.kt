@@ -59,21 +59,18 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         binding.backButton.setOnClickListener { navController.popBackStack() }
         binding.categoryName.text = args.categoryName
 
-        getCategoryInfo()
-        setUpCategoryRecyclerView()
+        setUpCategory()
     }
 
-    private fun getCategoryInfo() {
+    private fun setUpCategory() {
         lifecycleScope.launch {
             categoryViewModel.getCategory(args.categoryName)
             categoryViewModel.categoryStateFlow.collect { data ->
                 categoryAdapter.differ.submitList(data)
             }
         }
-    }
 
-    private fun setUpCategoryRecyclerView() {
-        binding.rvCategoryContent.apply {
+        with(binding.rvCategoryContent) {
             //layoutManager = LinearLayoutManager(context)
             layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
             //layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

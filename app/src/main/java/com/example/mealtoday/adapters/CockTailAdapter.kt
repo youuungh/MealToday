@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mealtoday.data.Drink
+import com.example.mealtoday.data.Cocktail
 import com.example.mealtoday.databinding.ItemCocktailBinding
 import com.google.android.material.animation.AnimationUtils.lerp
 
 class CockTailAdapter: RecyclerView.Adapter<CockTailAdapter.ItemViewHolder>() {
 
-    private val diffUtil = object : DiffUtil.ItemCallback<Drink>() {
-        override fun areItemsTheSame(oldItem: Drink, newItem: Drink): Boolean {
+    private val diffUtil = object : DiffUtil.ItemCallback<Cocktail>() {
+        override fun areItemsTheSame(oldItem: Cocktail, newItem: Cocktail): Boolean {
             return oldItem.idDrink == newItem.idDrink
         }
 
-        override fun areContentsTheSame(oldItem: Drink, newItem: Drink): Boolean {
+        override fun areContentsTheSame(oldItem: Cocktail, newItem: Cocktail): Boolean {
             return oldItem == newItem
         }
     }

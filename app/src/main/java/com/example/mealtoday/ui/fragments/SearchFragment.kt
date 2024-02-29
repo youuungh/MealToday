@@ -112,7 +112,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun setupSearchRecyclerView() {
-        binding.rvSearch.apply {
+        with(binding.rvSearch) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = searchAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
