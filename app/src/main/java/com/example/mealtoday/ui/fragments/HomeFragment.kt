@@ -65,11 +65,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         getRandomMeal()
-        getHotMeal()
-        setUpHotRecyclerView()
+        setUpHotMeal()
         //onHotItemClick()
-        getCategories()
-        setUpCategoriesRecyclerView()
+        setUpCategories()
         onCategoryItemClick()
         onSearchClick()
 
@@ -104,15 +102,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun getHotMeal() {
+    private fun setUpHotMeal() {
         homeViewModel.getHotMeals()
         homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
             hotAdapter.differ.submitList(data)
         }
-    }
 
-    private fun setUpHotRecyclerView() {
-        binding.hotRecycler.apply {
+        with(binding.hotRecycler) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = hotAdapter
         }
@@ -127,17 +123,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        }
 //    }
 
-    private fun getCategories() {
+    private fun setUpCategories() {
         homeViewModel.getCategoriesHomeFragment()
         lifecycleScope.launch {
             homeViewModel.getCategoriesStateFlow.collect { data ->
                 categoriesHomeAdapter.differ.submitList(data)
             }
         }
-    }
 
-    private fun setUpCategoriesRecyclerView() {
-        binding.categoryRecycler.apply {
+        with(binding.categoryRecycler) {
             layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
             adapter = categoriesHomeAdapter
         }

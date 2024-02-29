@@ -87,8 +87,6 @@ dependencies {
     // BlurView
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
 
-    // StickyScrollView
-    implementation("com.github.amarjain07:StickyScrollView:1.0.3")
 }
 
 kapt {
