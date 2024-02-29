@@ -7,7 +7,6 @@ import com.example.mealtoday.data.MealList
 import com.example.mealtoday.db.MealDatabase
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
-import java.util.concurrent.Flow
 import javax.inject.Inject
 import javax.inject.Named
 
