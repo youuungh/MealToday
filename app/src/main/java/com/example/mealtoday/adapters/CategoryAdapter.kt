@@ -44,8 +44,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
             .into(holder.binding.contentImage)
 
         holder.apply {
-            holder.binding.blurView.setupWith(binding.root, RenderEffectBlur())
-            holder.binding.contentTitle.text = data.strMeal
+            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            binding.contentTitle.text = data.strMeal
         }
     }
 }

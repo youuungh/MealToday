@@ -41,7 +41,7 @@ class BannerAdapter: RecyclerView.Adapter<BannerAdapter.ItemViewHolder>() {
             .into(holder.binding.bannerImage)
 
         holder.apply {
-            holder.binding.bannerTitle.text = data.strMeal
+            binding.bannerTitle.text = data.strMeal
         }
     }
 }

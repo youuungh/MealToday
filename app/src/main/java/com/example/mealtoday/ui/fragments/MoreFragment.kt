@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -105,8 +104,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             }
         }
 
-        CarouselSnapHelper().attachToRecyclerView(binding.cocktail)
-        with(binding.cocktail) {
+        CarouselSnapHelper().attachToRecyclerView(binding.cocktailRecycler)
+        with(binding.cocktailRecycler) {
             adapter = cockTailAdapter
         }
     }
@@ -117,8 +116,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             drinkAdapter.differ.submitList(data)
         }
 
-        PagerSnapHelper().attachToRecyclerView(binding.drink)
-        with(binding.drink) {
+        PagerSnapHelper().attachToRecyclerView(binding.drinkRecycler)
+        with(binding.drinkRecycler) {
             layoutManager = GridLayoutManager(context, 5, RecyclerView.HORIZONTAL, false)
             adapter = drinkAdapter
         }

@@ -43,8 +43,8 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
             .into(holder.binding.favoriteImage)
 
         holder.apply {
-            holder.binding.blurView.setupWith(binding.root, RenderEffectBlur())
-            holder.binding.tvFavTitle.text = data.strMeal
+            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            binding.tvFavTitle.text = data.strMeal
         }
     }
 }

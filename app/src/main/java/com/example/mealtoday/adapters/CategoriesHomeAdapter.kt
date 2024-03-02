@@ -39,9 +39,9 @@ class CategoriesHomeAdapter: RecyclerView.Adapter<CategoriesHomeAdapter.ItemView
             .load(data.strCategoryThumb)
             .into(holder.binding.categoryImage)
 
-        holder.binding.tvCategoryTitle.text = data.strCategory
-
         holder.apply {
+            binding.tvCategoryTitle.text = data.strCategory
+
             itemView.setOnClickListener {
                 onCategoryItemClick.invoke(data)
             }

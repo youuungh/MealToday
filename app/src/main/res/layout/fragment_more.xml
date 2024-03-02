@@ -34,10 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/banner"
@@ -46,20 +45,37 @@
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
                 android:clipChildren="false"
-                android:clipToPadding="false" />
+                android:clipToPadding="false"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tvCocktail"
+                android:id="@+id/cocktail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/google_sans_bold"
                 android:text="인기 칵테일"
-                android:textSize="22sp"/>
+                android:textSize="22sp"
+                app:layout_constraintTop_toBottomOf="@id/banner"
+                app:layout_constraintStart_toStartOf="@+id/start"/>
+
+            <TextView
+                android:id="@+id/cocktailAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/google_sans_bold"
+                android:foreground="@drawable/bg_text_ripple"
+                android:text="전체보기"
+                android:textSize="13sp"
+                app:layout_constraintTop_toTopOf="@id/cocktail"
+                app:layout_constraintBottom_toBottomOf="@id/cocktail"
+                app:layout_constraintEnd_toEndOf="@id/end" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/cocktail"
+                android:id="@+id/cocktailRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:layout_marginTop="16dp"
@@ -68,20 +84,22 @@
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
-                tools:listitem="@layout/item_cocktail"/>
+                tools:listitem="@layout/item_cocktail"
+                app:layout_constraintTop_toBottomOf="@id/cocktail"/>
 
             <TextView
-                android:id="@+id/tvDrink"
+                android:id="@+id/drink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/google_sans_bold"
                 android:text="추천 음료"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                app:layout_constraintTop_toBottomOf="@id/cocktailRecycler"
+                app:layout_constraintStart_toStartOf="@id/start"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/drink"
+                android:id="@+id/drinkRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
@@ -91,9 +109,27 @@
                 android:orientation="horizontal"
                 app:spanCount="5"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/drink"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/item_drink"/>
 
-        </LinearLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.04"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.96"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 

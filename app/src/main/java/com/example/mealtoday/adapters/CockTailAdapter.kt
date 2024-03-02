@@ -42,9 +42,9 @@ class CockTailAdapter: RecyclerView.Adapter<CockTailAdapter.ItemViewHolder>() {
             .into(holder.binding.cocktailImage)
 
         holder.apply {
-            holder.binding.cocktailTitle.text = data.strDrink
+            binding.cocktailTitle.text = data.strDrink
 
-            holder.binding.root.setOnMaskChangedListener { maskRect ->
+            binding.root.setOnMaskChangedListener { maskRect ->
                 binding.cocktailTitle.translationX = maskRect.left
                 binding.cocktailTitle.alpha = lerp(1F, 0F, 0F, 80F, maskRect.left)
             }

@@ -2,20 +2,45 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cvHotImage"
-    android:layout_width="200dp"
-    android:layout_height="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="6dp"
     android:layout_marginEnd="16dp"
     app:strokeWidth="0dp"
     app:cardElevation="3dp"
     app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@color/md_blue_grey_50">
-    
-    <ImageView
-        android:id="@+id/hotImage"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:strokeWidth="0dp">
+
+            <ImageView
+                android:id="@+id/hotImage"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/hotTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="6dp"
+            android:paddingHorizontal="5dp"
+            android:fontFamily="@font/google_sans_medium"
+            android:text="Title"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

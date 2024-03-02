@@ -39,7 +39,7 @@ class BeverageAdapter: RecyclerView.Adapter<BeverageAdapter.ItemViewHolder>() {
             .into(holder.binding.beverageImage)
 
         holder.apply {
-            holder.binding.beverageTitle.text = data.strDrink
+            binding.beverageTitle.text = data.strDrink
         }
     }
 

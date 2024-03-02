@@ -11,7 +11,6 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,8 +21,6 @@ import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoriesHomeAdapter
 import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentHomeBinding
-import com.example.mealtoday.databinding.ItemHotBinding
-import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
@@ -81,7 +78,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun getRandomMeal() {
         homeViewModel.getRandomMeal()
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner) { data ->
-            binding.cvRandomImage.transitionName = "trans_${data.idMeal}"
+            binding.randomImageLayout.transitionName = "trans_${data.idMeal}"
             run {
                 Glide.with(this)
                     .load(data.strMealThumb)
@@ -89,8 +86,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     .into(binding.randomImage)
 
                 try {
-                    binding.cvRandomImage.setOnClickListener {
-                        val extras = FragmentNavigatorExtras(binding.cvRandomImage to "trans_${data.idMeal}")
+                    binding.randomImageLayout.setOnClickListener {
+                        val extras = FragmentNavigatorExtras(binding.randomImageLayout to "trans_${data.idMeal}")
                         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
                             data.idMeal, data.strMealThumb, data.strMeal), extras
                         )

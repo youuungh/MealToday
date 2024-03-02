@@ -50,8 +50,8 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
             .into(holder.binding.searchBg)
 
         holder.apply {
-            holder.binding.blurView.setupWith(binding.root, RenderEffectBlur())
-            holder.binding.searchTitle.text = data.strMeal
+            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            binding.searchTitle.text = data.strMeal
         }
     }
 }

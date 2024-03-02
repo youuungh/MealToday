@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/contentContainer"
     android:orientation="vertical"
     tools:context=".ui.fragments.FavoritesFragment">
 
@@ -36,7 +35,7 @@
                         android:textSize="22sp" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvItemCounts"
+                        android:id="@+id/itemCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -57,22 +56,23 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFavorite"
+            android:id="@+id/favoriteRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="10dp"
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="8dp"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/noDataContainer"
+            android:id="@+id/noDataLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
             tools:visibility="visible">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/noDataText"
+                android:id="@+id/noData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

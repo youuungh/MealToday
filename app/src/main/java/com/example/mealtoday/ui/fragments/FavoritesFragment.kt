@@ -50,7 +50,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpFavorite()
-        swipeToDelete(binding.rvFavorite)
+        swipeToDelete(binding.favoriteRecycler)
     }
 
     private fun setUpFavorite() {
@@ -58,17 +58,17 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             mealViewModel.getAllFavoriteMeal().collect { favoriteData ->
                 favoriteAdapter.differ.submitList(favoriteData)
                 if (favoriteData.isNotEmpty()) {
-                    binding.noDataContainer.isVisible = false
-                    binding.tvItemCounts.isVisible = true
-                    binding.tvItemCounts.text = favoriteData.size.toString()
+                    binding.noDataLayout.isVisible = false
+                    binding.itemCount.isVisible = true
+                    binding.itemCount.text = favoriteData.size.toString()
                 } else {
-                    binding.noDataContainer.isVisible = true
-                    binding.tvItemCounts.isVisible = false
+                    binding.noDataLayout.isVisible = true
+                    binding.itemCount.isVisible = false
                 }
             }
         }
 
-        with(binding.rvFavorite) {
+        with(binding.favoriteRecycler) {
             layoutManager = LinearLayoutManager(context)
             adapter = favoriteAdapter
             setHasFixedSize(true)
