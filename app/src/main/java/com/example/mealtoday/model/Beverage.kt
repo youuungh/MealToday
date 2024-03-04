@@ -1,4 +1,4 @@
-package com.example.mealtoday.data
+package com.example.mealtoday.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

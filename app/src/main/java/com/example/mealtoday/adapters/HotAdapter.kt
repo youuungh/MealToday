@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mealtoday.databinding.ItemHotBinding
-import com.example.mealtoday.data.Hot
+import com.example.mealtoday.model.Hot
 import com.example.mealtoday.ui.fragments.HomeFragmentDirections
 
-class HotAdapter: RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
+class HotAdapter(): RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
 
     //lateinit var onHotItemClick: ((Hot) -> Unit)
 

@@ -59,26 +59,11 @@
                 app:layout_constraintTop_toBottomOf="@id/banner"
                 app:layout_constraintStart_toStartOf="@+id/start"/>
 
-            <TextView
-                android:id="@+id/cocktailAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/google_sans_bold"
-                android:foreground="@drawable/bg_text_ripple"
-                android:text="전체보기"
-                android:textSize="13sp"
-                app:layout_constraintTop_toTopOf="@id/cocktail"
-                app:layout_constraintBottom_toBottomOf="@id/cocktail"
-                app:layout_constraintEnd_toEndOf="@id/end" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cocktailRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="16dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
@@ -98,11 +83,26 @@
                 app:layout_constraintTop_toBottomOf="@id/cocktailRecycler"
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
+            <TextView
+                android:id="@+id/drinkAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/google_sans_bold"
+                android:foreground="@drawable/bg_text_ripple"
+                android:text="전체보기"
+                android:textSize="13sp"
+                app:layout_constraintTop_toTopOf="@id/drink"
+                app:layout_constraintBottom_toBottomOf="@id/drink"
+                app:layout_constraintEnd_toEndOf="@id/end" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/drinkRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
+                android:layout_marginVertical="8dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="24dp"
                 android:clipToPadding="false"

@@ -23,7 +23,7 @@
                 android:layout_height="?actionBarSize">
 
                 <ImageView
-                    android:id="@+id/backButton"
+                    android:id="@+id/back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
@@ -33,7 +33,7 @@
                     android:src="@drawable/ic_arrow_back" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/categoryName"
+                    android:id="@+id/categoryTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -54,7 +54,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCategoryContent"
+        android:id="@+id/categoryContentRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="8dp"

@@ -50,8 +50,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         navController = Navigation.findNavController(view)
 
-        binding.backButton.setOnClickListener { navController.popBackStack() }
-        binding.categoryName.text = args.categoryName
+        binding.back.setOnClickListener { navController.popBackStack() }
+        binding.categoryTitle.text = args.categoryName
 
         setUpCategory()
     }
@@ -64,7 +64,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             }
         }
 
-        with(binding.rvCategoryContent) {
+        with(binding.categoryContentRecycler) {
             //layoutManager = LinearLayoutManager(context)
             layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
             //layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

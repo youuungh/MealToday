@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.mealtoday.data.Beverage
+import com.example.mealtoday.model.Beverage
 import com.example.mealtoday.databinding.ItemBeverageBinding
 
 class BeverageAdapter: RecyclerView.Adapter<BeverageAdapter.ItemViewHolder>() {

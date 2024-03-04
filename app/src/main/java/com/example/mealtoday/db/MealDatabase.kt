@@ -3,7 +3,7 @@ package com.example.mealtoday.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.mealtoday.data.Meal
+import com.example.mealtoday.model.Meal
 
 @Database(
     entities = [Meal::class],

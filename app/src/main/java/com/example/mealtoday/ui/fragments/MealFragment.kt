@@ -21,7 +21,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.example.mealtoday.R
-import com.example.mealtoday.data.Meal
+import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.FragmentMealBinding
 import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.viewModel.MealViewModel

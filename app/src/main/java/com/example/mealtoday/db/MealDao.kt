@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.mealtoday.data.Meal
+import com.example.mealtoday.model.Meal
 import kotlinx.coroutines.flow.Flow
 
 @Dao

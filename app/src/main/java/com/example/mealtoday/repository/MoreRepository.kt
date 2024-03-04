@@ -1,10 +1,10 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
-import com.example.mealtoday.data.BannerList
-import com.example.mealtoday.data.BeverageList
-import com.example.mealtoday.data.CocktailList
-import com.example.mealtoday.data.DrinkList
+import com.example.mealtoday.model.BannerList
+import com.example.mealtoday.model.BeverageList
+import com.example.mealtoday.model.CocktailList
+import com.example.mealtoday.model.DrinkList
 import com.example.mealtoday.network.CockTailApi
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response

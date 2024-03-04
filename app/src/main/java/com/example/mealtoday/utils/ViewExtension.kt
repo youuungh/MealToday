@@ -29,7 +29,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.tabs.TabLayout
 
-const val ANIM_DURATION_SHOW = 600L
+const val ANIM_DURATION_SHOW = 800L
 const val ANIM_DURATION_HIDE = 300L
 
 fun View.doOnApplyWindowInsets(windowInsetsListener: (insetView: View, windowInsets: WindowInsetsCompat,

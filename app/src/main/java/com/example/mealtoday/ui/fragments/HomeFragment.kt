@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.mealtoday.DEFAULT
+import com.example.mealtoday.HOT_MEAL
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoriesHomeAdapter
 import com.example.mealtoday.adapters.HotAdapter
@@ -53,9 +57,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
+        view.doOnPreDraw { startPostponedEnterTransition() }
         enterTransition = MaterialFadeThrough().addTarget(view)
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(view)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
@@ -64,6 +66,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         getRandomMeal()
         setUpHotMeal()
         //onHotItemClick()
+        onHotAllClick(view)
         setUpCategories()
         onCategoryItemClick()
         onSearchClick()
@@ -119,6 +122,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //            )
 //        }
 //    }
+
+    private fun onHotAllClick(view: View) {
+        binding.hotAll.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                HOT_MEAL
+            ))
+        }
+    }
 
     private fun setUpCategories() {
         homeViewModel.getCategoriesHomeFragment()

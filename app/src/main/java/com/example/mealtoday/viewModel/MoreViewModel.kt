@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mealtoday.data.Banner
-import com.example.mealtoday.data.Beverage
-import com.example.mealtoday.data.Cocktail
-import com.example.mealtoday.data.Drink
+import com.example.mealtoday.model.Banner
+import com.example.mealtoday.model.Beverage
+import com.example.mealtoday.model.Cocktail
+import com.example.mealtoday.model.Drink
 import com.example.mealtoday.repository.MoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

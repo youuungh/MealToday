@@ -1,8 +1,7 @@
 package com.example.mealtoday.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import com.example.mealtoday.data.MealList
+import com.example.mealtoday.model.MealList
 import com.example.mealtoday.network.MealApi
 import retrofit2.Response
 import javax.inject.Inject

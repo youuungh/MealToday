@@ -1,9 +1,9 @@
 package com.example.mealtoday.network
 
-import com.example.mealtoday.data.Categories
-import com.example.mealtoday.data.HotList
-import com.example.mealtoday.data.MealList
-import com.example.mealtoday.data.BannerList
+import com.example.mealtoday.model.Categories
+import com.example.mealtoday.model.HotList
+import com.example.mealtoday.model.MealList
+import com.example.mealtoday.model.BannerList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

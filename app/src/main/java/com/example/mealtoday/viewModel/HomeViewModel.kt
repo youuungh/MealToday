@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mealtoday.data.Category
-import com.example.mealtoday.data.Hot
-import com.example.mealtoday.data.Meal
+import com.example.mealtoday.model.Category
+import com.example.mealtoday.model.Hot
+import com.example.mealtoday.model.Meal
 import com.example.mealtoday.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

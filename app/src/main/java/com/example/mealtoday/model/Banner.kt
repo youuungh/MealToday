@@ -1,4 +1,4 @@
-package com.example.mealtoday.data
+package com.example.mealtoday.model
 
 data class Banner(
     val idMeal: String,

@@ -6,19 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.example.mealtoday.DRINK
+import com.example.mealtoday.HOT_MEAL
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.BannerAdapter
 import com.example.mealtoday.adapters.BeverageAdapter
 import com.example.mealtoday.adapters.CockTailAdapter
 import com.example.mealtoday.adapters.DrinkAdapter
-import com.example.mealtoday.data.Banner
+import com.example.mealtoday.model.Banner
 import com.example.mealtoday.databinding.FragmentMoreBinding
 import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.carousel.CarouselSnapHelper
@@ -58,9 +62,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
+        view.doOnPreDraw { startPostponedEnterTransition() }
         enterTransition = MaterialFadeThrough().addTarget(view)
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +70,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         setUpBanner()
         setUpCocktail()
         setUpDrink()
+        onDrinkAllClick(view)
     }
 
     private fun setUpBanner() {
@@ -76,24 +79,24 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             bannerList.clear()
             bannerList.addAll(data)
             bannerAdapter.differ.submitList(bannerList)
-
-            with(binding.banner) {
-                adapter = bannerAdapter
-                offscreenPageLimit = 3
-                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-                setCurrentItem(currentPagePosition, false)
-            }
-
-            val compositePageTransformer = CompositePageTransformer()
-            compositePageTransformer.addTransformer(MarginPageTransformer(40))
-
-            compositePageTransformer.addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85f + r * 0.15f
-            }
-
-            binding.banner.setPageTransformer(compositePageTransformer)
         }
+
+        with(binding.banner) {
+            adapter = bannerAdapter
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            setCurrentItem(currentPagePosition, false)
+        }
+
+        val compositePageTransformer = CompositePageTransformer()
+        compositePageTransformer.addTransformer(MarginPageTransformer(40))
+
+        compositePageTransformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.15f
+        }
+
+        binding.banner.setPageTransformer(compositePageTransformer)
     }
 
     private fun setUpCocktail() {
@@ -120,6 +123,14 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         with(binding.drinkRecycler) {
             layoutManager = GridLayoutManager(context, 5, RecyclerView.HORIZONTAL, false)
             adapter = drinkAdapter
+        }
+    }
+
+    private fun onDrinkAllClick(view: View) {
+        binding.drinkAll.setOnClickListener {
+            findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToDetailFragment(
+                DRINK
+            ))
         }
     }
 }
