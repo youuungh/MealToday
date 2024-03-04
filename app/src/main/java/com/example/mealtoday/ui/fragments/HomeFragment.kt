@@ -63,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        getRandomMeal()
+        setUpRandomMeal()
         setUpHotMeal()
         //onHotItemClick()
         onHotAllClick(view)
@@ -78,7 +78,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun getRandomMeal() {
+    private fun setUpRandomMeal() {
         homeViewModel.getRandomMeal()
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner) { data ->
             binding.randomImageLayout.transitionName = "trans_${data.idMeal}"
