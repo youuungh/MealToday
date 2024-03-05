@@ -28,12 +28,6 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var navController: NavController
-    private lateinit var categoryAdapter: CategoryAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        categoryAdapter = CategoryAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +51,8 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     private fun setUpCategory() {
+        val categoryAdapter = CategoryAdapter()
+
         lifecycleScope.launch {
             categoryViewModel.getCategory(args.categoryName)
             categoryViewModel.categoryStateFlow.collect { data ->

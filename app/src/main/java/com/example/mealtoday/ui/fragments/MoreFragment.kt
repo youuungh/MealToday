@@ -38,20 +38,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     private val moreViewModel: MoreViewModel by viewModels()
 
     private lateinit var binding: FragmentMoreBinding
-    private lateinit var bannerAdapter: BannerAdapter
-    private lateinit var cockTailAdapter: CockTailAdapter
-    private lateinit var drinkAdapter: DrinkAdapter
-    private lateinit var beverageAdapter: BeverageAdapter
     private var bannerList: ArrayList<Banner> = ArrayList()
     private var currentPagePosition = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        bannerAdapter = BannerAdapter()
-        cockTailAdapter = CockTailAdapter()
-        drinkAdapter = DrinkAdapter()
-        beverageAdapter = BeverageAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,20 +56,14 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            val bannerDeferred = async { setUpBanner() }
-            val cocktailDeferred = async { setUpCocktail() }
-            val drinkDeferred = async { setUpDrink() }
-
-            bannerDeferred.await()
-            cocktailDeferred.await()
-            drinkDeferred.await()
-        }
-
-        onDrinkAllClick()
+        setUpBanner()
+        setUpCocktail()
+        setUpDrink()
     }
 
     private fun setUpBanner() {
+        val bannerAdapter = BannerAdapter()
+
         moreViewModel.getBannerMeals()
         moreViewModel.getBannerMealLiveData.observe(viewLifecycleOwner) { data ->
             bannerList.clear()
@@ -108,6 +90,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     private fun setUpCocktail() {
+        val cockTailAdapter = CockTailAdapter()
+
         lifecycleScope.launch {
             moreViewModel.getCocktails("Cocktail")
             moreViewModel.cocktailStateFlow.collect { data ->
@@ -122,6 +106,8 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     private fun setUpDrink() {
+        val drinkAdapter = DrinkAdapter()
+
         moreViewModel.getDrinks()
         moreViewModel.getDrinkMealLiveData.observe(viewLifecycleOwner) { data ->
             drinkAdapter.differ.submitList(data)
@@ -132,9 +118,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             layoutManager = GridLayoutManager(context, 5, RecyclerView.HORIZONTAL, false)
             adapter = drinkAdapter
         }
-    }
 
-    private fun onDrinkAllClick() {
         binding.drinkAll.setOnClickListener {
             findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToDetailFragment(
                 DRINK

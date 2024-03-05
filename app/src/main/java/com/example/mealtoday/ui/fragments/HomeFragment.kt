@@ -41,14 +41,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var hotAdapter : HotAdapter
-    private lateinit var categoriesHomeAdapter : CategoriesHomeAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        hotAdapter = HotAdapter()
-        categoriesHomeAdapter = CategoriesHomeAdapter()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,19 +58,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            val randomMealDeferred = async { setUpRandomMeal() }
-            val hotMealDeferred = async { setUpHotMeal() }
-            val categoriesDeferred = async { setUpCategories() }
-
-            randomMealDeferred.await()
-            hotMealDeferred.await()
-            categoriesDeferred.await()
-        }
-
+        setUpRandomMeal()
+        setUpHotMeal()
+        setUpCategories()
         //onHotItemClick()
-        onHotAllClick()
-        onCategoryItemClick()
         onSearchClick()
 
         requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
@@ -112,6 +95,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUpHotMeal() {
+        val hotAdapter = HotAdapter()
+
         homeViewModel.getHotMeals()
         homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
             hotAdapter.differ.submitList(data)
@@ -121,6 +106,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = hotAdapter
             setHasFixedSize(true)
+        }
+
+        binding.hotAll.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                HOT_MEAL
+            ))
         }
     }
 
@@ -133,15 +124,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        }
 //    }
 
-    private fun onHotAllClick() {
-        binding.hotAll.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                HOT_MEAL
-            ))
-        }
-    }
-
     private fun setUpCategories() {
+        val categoriesHomeAdapter = CategoriesHomeAdapter()
+
         homeViewModel.getCategoriesHomeFragment()
         lifecycleScope.launch {
             homeViewModel.getCategoriesStateFlow.collect { data ->
@@ -153,9 +138,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
             adapter = categoriesHomeAdapter
         }
-    }
 
-    private fun onCategoryItemClick() {
         categoriesHomeAdapter.onCategoryItemClick = { data ->
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCategoryFragment(
                 data.strCategory
