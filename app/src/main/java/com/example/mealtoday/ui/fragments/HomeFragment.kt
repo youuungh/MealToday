@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.mealtoday.DEFAULT
 import com.example.mealtoday.HOT_MEAL
 import com.example.mealtoday.R
@@ -30,6 +31,8 @@ import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -63,11 +66,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        setUpRandomMeal()
-        setUpHotMeal()
+        lifecycleScope.launch {
+            val randomMealDeferred = async { setUpRandomMeal() }
+            val hotMealDeferred = async { setUpHotMeal() }
+            val categoriesDeferred = async { setUpCategories() }
+
+            randomMealDeferred.await()
+            hotMealDeferred.await()
+            categoriesDeferred.await()
+        }
+
         //onHotItemClick()
-        onHotAllClick(view)
-        setUpCategories()
+        onHotAllClick()
         onCategoryItemClick()
         onSearchClick()
 
@@ -83,9 +93,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner) { data ->
             binding.randomImageLayout.transitionName = "trans_${data.idMeal}"
             run {
-                Glide.with(this)
+                Glide.with(this@HomeFragment)
                     .load(data.strMealThumb)
-                    .override(300, 300)
                     .into(binding.randomImage)
 
                 try {
@@ -111,6 +120,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         with(binding.hotRecycler) {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
             adapter = hotAdapter
+            setHasFixedSize(true)
         }
     }
 
@@ -123,7 +133,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        }
 //    }
 
-    private fun onHotAllClick(view: View) {
+    private fun onHotAllClick() {
         binding.hotAll.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                 HOT_MEAL

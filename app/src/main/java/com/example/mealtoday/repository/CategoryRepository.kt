@@ -15,10 +15,8 @@ class CategoryRepository @Inject constructor(
         val response = mealApi.getCategory(categoryName)
         if (response.isSuccessful) {
             Log.d("TAG", "Category 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "Category 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }

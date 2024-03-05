@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.ItemSearchBinding
 import eightbitlab.com.blurview.RenderEffectBlur
@@ -41,11 +42,13 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
             .override(100, 100)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.searchImage)
 
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
             .override(300, 300)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.searchBg)
 
         holder.apply {

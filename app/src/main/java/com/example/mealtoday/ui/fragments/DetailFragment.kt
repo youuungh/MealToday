@@ -20,6 +20,7 @@ import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentDetailBinding
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.example.mealtoday.viewModel.MoreViewModel
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,6 +54,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             HOT_MEAL -> loadHotAll()
             DRINK -> loadDrinkAll()
         }
+
+        binding.appBarLayout.statusBarForeground =
+            MaterialShapeDrawable.createWithElevationOverlay(requireContext())
 
         binding.back.setOnClickListener {
             navController.popBackStack()

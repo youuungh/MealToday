@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.ItemFavoriteBinding
 import eightbitlab.com.blurview.RenderEffectBlur
@@ -40,6 +41,7 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.favoriteImage)
 
         holder.apply {

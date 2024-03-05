@@ -16,10 +16,8 @@ class SearchRepository @Inject constructor(
         val response = mealApi.getSearchMeals(searchQuery)
         if (response.isSuccessful) {
             Log.d("TAG", "SearchMeal 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "SearchMeal 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }

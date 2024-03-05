@@ -28,6 +28,7 @@ import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -67,10 +68,17 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
-        setUpBanner()
-        setUpCocktail()
-        setUpDrink()
-        onDrinkAllClick(view)
+        lifecycleScope.launch {
+            val bannerDeferred = async { setUpBanner() }
+            val cocktailDeferred = async { setUpCocktail() }
+            val drinkDeferred = async { setUpDrink() }
+
+            bannerDeferred.await()
+            cocktailDeferred.await()
+            drinkDeferred.await()
+        }
+
+        onDrinkAllClick()
     }
 
     private fun setUpBanner() {
@@ -126,7 +134,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         }
     }
 
-    private fun onDrinkAllClick(view: View) {
+    private fun onDrinkAllClick() {
         binding.drinkAll.setOnClickListener {
             findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToDetailFragment(
                 DRINK

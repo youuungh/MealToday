@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.mealtoday.databinding.ItemHotBinding
 import com.example.mealtoday.model.Hot
 import com.example.mealtoday.ui.fragments.HomeFragmentDirections
@@ -38,10 +40,13 @@ class HotAdapter(): RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val data = differ.currentList[position]
+        val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
+            .apply(requestOptions)
             .override(300, 300)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.hotImage)
 
         holder.apply {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.model.Cocktail
 import com.example.mealtoday.databinding.ItemCocktailBinding
 import com.google.android.material.animation.AnimationUtils.lerp
@@ -39,6 +40,7 @@ class CockTailAdapter: RecyclerView.Adapter<CockTailAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strDrinkThumb)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.cocktailImage)
 
         holder.apply {

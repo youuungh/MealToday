@@ -10,6 +10,7 @@ import com.example.mealtoday.model.Hot
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -30,13 +31,14 @@ class HomeViewModel @Inject constructor(
             _getRandomMealLiveData.postValue(randomMeal)
             return
         }
-        viewModelScope.launch {
+        viewModelScope.launch(IO) {
             try {
                 val response = homeRepository.getRandomMeal()
-                response.body()!!.meals.let {
-                    _getRandomMealLiveData.postValue(it[0])
+                val meals = response.body()?.meals
+                meals?.firstOrNull()?.let {
+                    _getRandomMealLiveData.postValue(it)
+                    saveStateRandomMeal = it
                 }
-                saveStateRandomMeal = response.body()!!.meals[0]
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "RandomMeal 에러")
             }
@@ -46,13 +48,21 @@ class HomeViewModel @Inject constructor(
     private val _getHotMealLiveData = MutableLiveData<List<Hot>>()
     val getHotMealLiveData: LiveData<List<Hot>> = _getHotMealLiveData
 
+    private var hotMealsCached: List<Hot>? = null
+
     fun getHotMeals() {
-        viewModelScope.launch {
+        if (hotMealsCached != null) {
+            _getHotMealLiveData.postValue(hotMealsCached!!)
+            return
+        }
+        viewModelScope.launch(IO) {
             try {
                 val response = homeRepository.getHotMeals("Seafood")
                 if (response.isSuccessful) {
-                    response.body()?.meals?.let {
+                    val meals = response.body()?.meals
+                    meals?.let {
                         _getHotMealLiveData.postValue(it)
+                        hotMealsCached = it
                     }
                 }
             } catch (t:Throwable) {
@@ -64,15 +74,21 @@ class HomeViewModel @Inject constructor(
     private val _getCategoriesStateFlow = MutableStateFlow<List<Category>>(emptyList())
     val  getCategoriesStateFlow: StateFlow<List<Category>> = _getCategoriesStateFlow
 
+    private var categoriesCached: List<Category>? = null
+
     fun getCategoriesHomeFragment() {
-        viewModelScope.launch {
+        categoriesCached?.let {
+            _getCategoriesStateFlow.value = it
+            return
+        }
+        viewModelScope.launch(IO) {
             try {
                 val response = homeRepository.getCategoriesHome()
                 if (response.isSuccessful) {
-                    response.body()?.categories.let { data ->
-                        if (data != null) {
-                            _getCategoriesStateFlow.emit(data)
-                        }
+                    val categories = response.body()?.categories
+                    categories?.let {
+                        _getCategoriesStateFlow.emit(it)
+                        categoriesCached = it
                     }
                 }
             } catch (t:Throwable) {

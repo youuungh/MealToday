@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.model.Beverage
 import com.example.mealtoday.databinding.ItemBeverageBinding
 
@@ -36,6 +37,7 @@ class BeverageAdapter: RecyclerView.Adapter<BeverageAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strDrinkThumb)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.beverageImage)
 
         holder.apply {

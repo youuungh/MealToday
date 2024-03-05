@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class SearchViewModel @Inject constructor(
 
     fun getSearchMeal(searchQuery: String) {
         searchJob?.cancel()
-        searchJob = viewModelScope.launch() {
+        searchJob = viewModelScope.launch {
             try {
                 val response = searchRepository.getSearchMeal(searchQuery)
                 if (response.isSuccessful) {

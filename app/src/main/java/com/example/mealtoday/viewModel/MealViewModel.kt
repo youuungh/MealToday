@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.repository.MealRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +21,11 @@ class MealViewModel @Inject constructor(
     val getMealInfoLiveData: LiveData<Meal> = _getMealInfoLiveData
 
     fun getMealInfo(mealId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(IO) {
             try {
                 val response = mealRepository.getMealInfo(mealId)
                 if (response.isSuccessful) {
-                    _getMealInfoLiveData.value = response.body()!!.meals[0]
+                    _getMealInfoLiveData.postValue(response.body()?.meals?.getOrNull(0))
                 }
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "MealInfo 에러")
@@ -32,11 +33,11 @@ class MealViewModel @Inject constructor(
         }
     }
 
-    fun upsertMeal(meal: Meal) = viewModelScope.launch {
+    fun upsertMeal(meal: Meal) = viewModelScope.launch(IO) {
         mealRepository.upsertMeal(meal)
     }
 
-    fun deleteMeal(meal: Meal) = viewModelScope.launch {
+    fun deleteMeal(meal: Meal) = viewModelScope.launch(IO) {
         mealRepository.deleteMeal(meal)
     }
 

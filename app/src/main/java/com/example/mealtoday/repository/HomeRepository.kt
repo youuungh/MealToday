@@ -17,10 +17,8 @@ class HomeRepository @Inject constructor(
         val response = mealApi.getRandomMeal()
         if (response.isSuccessful) {
             Log.d("TAG", "RandomMeal 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "RandomMeal 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
@@ -29,10 +27,8 @@ class HomeRepository @Inject constructor(
         val response = mealApi.getHotMeals(categoryName)
         if (response.isSuccessful) {
             Log.d("TAG", "HotMeal 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "HotMeal 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
@@ -41,10 +37,8 @@ class HomeRepository @Inject constructor(
         val response = mealApi.getCategoriesHomeFragment()
         if (response.isSuccessful) {
             Log.d("TAG", "Categories 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "Categories 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }

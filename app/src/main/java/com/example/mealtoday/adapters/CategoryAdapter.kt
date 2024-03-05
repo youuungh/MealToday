@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.model.Hot
 import com.example.mealtoday.databinding.CategoryContentBinding
 import eightbitlab.com.blurview.RenderEffectBlur
@@ -41,6 +42,7 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
             .override(300, 300)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.contentImage)
 
         holder.apply {

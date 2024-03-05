@@ -22,10 +22,8 @@ class MoreRepository @Inject constructor(
         val response = mealApi.getBannerMeals(categoryName)
         if (response.isSuccessful) {
             Log.d("TAG", "BannerMeal 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "BannerMeal 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
@@ -34,10 +32,8 @@ class MoreRepository @Inject constructor(
         val response = cockTailApi.getCocktails(cocktailName)
         if (response.isSuccessful) {
             Log.d("TAG", "CockTail 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "CockTail 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
@@ -46,10 +42,8 @@ class MoreRepository @Inject constructor(
         val response = cockTailApi.getDrinks(drinkName)
         if (response.isSuccessful) {
             Log.d("TAG", "Drinks 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "Drinks 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
@@ -58,10 +52,8 @@ class MoreRepository @Inject constructor(
         val response = cockTailApi.getBeverageInfo(beverageId)
         if (response.isSuccessful) {
             Log.d("TAG", "DrinkInfo 연결 성공")
-            Log.d("TAG", response.code().toString())
         } else {
             Log.d("TAG", "DrinkInfo 연결 실패")
-            Log.d("TAG", response.code().toString())
         }
         return response
     }
