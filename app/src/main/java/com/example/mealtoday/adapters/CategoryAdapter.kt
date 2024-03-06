@@ -41,7 +41,6 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
 
         Glide.with(holder.itemView)
             .load(data.strMealThumb)
-            .override(300, 300)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.contentImage)
 

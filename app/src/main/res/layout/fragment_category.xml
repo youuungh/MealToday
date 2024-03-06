@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".ui.fragments.CategoryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -48,6 +49,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryContentRecycler"
+        style="@style/Widget.MealToday.RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="8dp"

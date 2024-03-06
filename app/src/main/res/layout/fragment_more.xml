@@ -94,8 +94,7 @@
                 android:foreground="@drawable/bg_text_ripple"
                 android:text="전체보기"
                 android:textSize="13sp"
-                app:layout_constraintTop_toTopOf="@id/drink"
-                app:layout_constraintBottom_toBottomOf="@id/drink"
+                app:layout_constraintBaseline_toBaselineOf="@id/drink"
                 app:layout_constraintEnd_toEndOf="@id/end" />
 
             <androidx.recyclerview.widget.RecyclerView

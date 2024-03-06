@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/contentImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"/>
 
@@ -27,7 +27,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/contentTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingVertical="8dp"
             android:paddingHorizontal="16dp"
             android:fontFamily="@font/google_sans_regular"

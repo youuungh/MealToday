@@ -24,6 +24,7 @@
         <item name="colorSurface">@color/md_theme_light_surface</item>
         <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
         <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <!--<item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>-->
         <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
         <item name="colorOutline">@color/md_theme_light_outline</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
@@ -35,6 +36,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
+
+    <!--Toolbar -->
 
     <style name="Toolbar" parent="Widget.Material3.Toolbar">
         <item name="popupTheme">?toolbarPopupTheme</item>
@@ -53,17 +56,22 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
-    <style name="TabText" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/google_sans_regular</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16sp</item>
-    </style>
+    <!-- TextView -->
 
     <style name="TextViewHeadline" parent="TextAppearance.MaterialComponents.Headline6"/>
 
     <style name="TextViewSubtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/google_sans_regular</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- RecyclerView -->
+
+    <style name="Widget.MealToday.RecyclerView" parent="">
+        <item name="android:overScrollMode">ifContentScrolls</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@drawable/shape_round_scrollbar</item>
     </style>
 
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>

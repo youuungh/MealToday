@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.mealtoday.DEFAULT
 import com.example.mealtoday.HOT_MEAL
@@ -78,6 +79,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             run {
                 Glide.with(this@HomeFragment)
                     .load(data.strMealThumb)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.randomImage)
 
                 try {

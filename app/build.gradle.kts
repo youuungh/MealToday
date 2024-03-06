@@ -86,7 +86,6 @@ dependencies {
 
     // BlurView
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
-
 }
 
 kapt {

@@ -64,13 +64,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecycler"
+            style="@style/Widget.MealToday.RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="24dp"
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="16dp"
             android:clipToPadding="false"
-            android:overScrollMode="@integer/overScrollMode"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.textview.MaterialTextView

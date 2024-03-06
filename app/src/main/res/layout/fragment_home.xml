@@ -92,8 +92,7 @@
                 android:foreground="@drawable/bg_text_ripple"
                 android:text="전체보기"
                 android:textSize="13sp"
-                app:layout_constraintTop_toTopOf="@id/hot"
-                app:layout_constraintBottom_toBottomOf="@id/hot"
+                app:layout_constraintBaseline_toBaselineOf="@id/hot"
                 app:layout_constraintEnd_toEndOf="@id/end" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -107,7 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@id/hot"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hot"
                 tools:ignore="RtlSymmetry" />
 
@@ -138,8 +137,9 @@
                     android:id="@+id/categoryRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:orientation="vertical"
                     tools:listitem="@layout/item_category"
                     tools:spanCount="3"/>
 

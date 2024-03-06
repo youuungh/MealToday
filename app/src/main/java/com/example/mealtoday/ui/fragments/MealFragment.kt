@@ -20,6 +20,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.mealtoday.R
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.FragmentMealBinding
@@ -79,9 +81,12 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
     private fun getMealInfo() {
         binding.tvTitle.text = args.mealTitle
 
-        Glide.with(this)
+        val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+
+        Glide.with(this@MealFragment)
             .load(args.mealThumb)
-            .override(300, 300)
+            .apply(requestOptions)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.mealImage)
     }
 

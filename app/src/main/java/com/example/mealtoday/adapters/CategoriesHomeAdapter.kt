@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
+import com.example.mealtoday.R
 import com.example.mealtoday.databinding.ItemCategoryBinding
 import com.example.mealtoday.model.Category
 
@@ -37,11 +39,10 @@ class CategoriesHomeAdapter: RecyclerView.Adapter<CategoriesHomeAdapter.ItemView
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val data = differ.currentList[position]
-        val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
 
         Glide.with(holder.itemView)
             .load(data.strCategoryThumb)
-            .apply(requestOptions)
+            .override(80, 80)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.categoryImage)
 
