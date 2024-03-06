@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -20,8 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.mealtoday.DEFAULT
 import com.example.mealtoday.HOT_MEAL
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoriesHomeAdapter
@@ -32,8 +28,6 @@ import com.example.mealtoday.viewModel.HomeViewModel
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
