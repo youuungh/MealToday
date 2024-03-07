@@ -30,6 +30,7 @@ import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.text.StringBuilder
 
 @AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {
@@ -38,6 +39,7 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
     private val args: MealFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentMealBinding
+
     private lateinit var navController: NavController
     private var saveMeal: Meal? = null
     private var isFavorite: Boolean = false
@@ -66,26 +68,23 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
 
         ViewCompat.setTransitionName(view, "trans_${args.mealId}")
 
-        val activity = activity as MainActivity
-        activity.setSupportActionBar(binding.toolbar)
-
+        (activity as? MainActivity)?.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar?.title = " "
+        }
         binding.toolbar.setupWithNavController(navController)
-        binding.toolbar.title = " "
         binding.collapsing.title = " "
 
-        setAppBarOffset(activity)
         getMealInfo()
         observeMealInfoData()
+        setAppBarOffset()
     }
 
     private fun getMealInfo() {
-        binding.tvTitle.text = args.mealTitle
-
-        val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        binding.title.text = args.mealTitle
 
         Glide.with(this@MealFragment)
             .load(args.mealThumb)
-            .apply(requestOptions)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.mealImage)
     }
@@ -94,38 +93,74 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data
-            binding.category.text = data.strCategory
-            binding.location.text = data.strArea
-            binding.tvContent.text = data.strInstructions
-            binding.videoButton.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube)))
-            }
-            mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {
-                isFavorite = if (it.isNotEmpty()) {
-                    setFavoriteLogo(true)
-                    true
-                } else {
-                    setFavoriteLogo(false)
-                    false
+            binding.apply {
+                category.text = data.strCategory
+                location.text = data.strArea
+                content.text = data.strInstructions
+
+                mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {
+                    isFavorite = it.isNotEmpty()
+                    setFavoriteLogo(isFavorite)
                 }
-            }
-            binding.favoriteButton.setOnClickListener {
-                saveMeal?.let { meal ->
-                    if (isFavorite) {
-                        setSnackBar("Favorite에서 삭제되었습니다")
-                        mealViewModel.deleteMeal(meal)
-                    } else {
-                        setSnackBar("Favorite에 추가되었습니다")
-                        mealViewModel.upsertMeal(meal)
+
+                favorite.setOnClickListener {
+                    saveMeal?.let { meal ->
+                        val msg = if (isFavorite) "Favorite에서 삭제되었습니다" else "Favorite에 추가되었습니다"
+                        setSnackBar(msg)
+                        if (isFavorite) mealViewModel.deleteMeal(meal) else mealViewModel.upsertMeal(meal)
                     }
                 }
+
+                video.setOnClickListener {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(data.strYoutube)))
+                }
+
+                val ingredients = (1..20)
+                    .mapNotNull { i ->
+                        val ingredient = data.getIngredient(i)
+                        val measure = data.getMeasure(i)
+                        if (!ingredient.isNullOrBlank() && !measure.isNullOrBlank()) {
+                            "$ingredient: $measure"
+                        } else null
+                    }
+                    .joinToString("\n")
+                ingredient.text = ingredients
             }
         }
     }
 
-    private fun setAppBarOffset(activity: Activity) {
+    private fun Meal.getIngredient(index: Int): String? {
+        val fieldName = "strIngredient$index"
+        return try {
+            javaClass.getDeclaredField(fieldName).apply { isAccessible = true }.get(this) as? String
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun Meal.getMeasure(index: Int): String? {
+        val fieldName = "strMeasure$index"
+        return try {
+            javaClass.getDeclaredField(fieldName).apply { isAccessible = true }.get(this) as? String
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun setFavoriteLogo(isFavorite: Boolean) {
+        val drawableRes = if (isFavorite) R.drawable.ic_favorite_fill else R.drawable.ic_favorite
+        binding.favorite.setImageDrawable(ContextCompat.getDrawable(binding.favorite.context, drawableRes))
+    }
+
+    private fun setSnackBar(result: String) {
+        Snackbar.make(binding.root, result, Snackbar.LENGTH_SHORT).apply {
+            animationMode = Snackbar.ANIMATION_MODE_FADE
+        }.show()
+    }
+
+    private fun setAppBarOffset() {
         binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val window = activity.window
+            val window = requireActivity().window
             val collapsingHeight = binding.collapsing.height
             val minimumHeight = ViewCompat.getMinimumHeight(binding.collapsing) * 2
             val controller = WindowCompat.getInsetsController(window, window.decorView)
@@ -145,22 +180,6 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             }
             binding.toolbar.navigationIcon?.colorFilter = colorFilter
         }
-    }
-
-    private fun setFavoriteLogo(isFavorite: Boolean) {
-        if(isFavorite) {
-            binding.favoriteButton.setImageDrawable(ContextCompat
-                .getDrawable(binding.favoriteButton.context, R.drawable.ic_favorite_fill))
-        } else {
-            binding.favoriteButton.setImageDrawable(ContextCompat
-                .getDrawable(binding.favoriteButton.context, R.drawable.ic_favorite))
-        }
-    }
-
-    private fun setSnackBar(result: String) {
-        Snackbar.make(binding.root, result, Snackbar.LENGTH_SHORT).apply {
-            animationMode = Snackbar.ANIMATION_MODE_FADE
-        }.show()
     }
 
     override fun onDestroy() {

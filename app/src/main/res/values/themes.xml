@@ -74,5 +74,13 @@
         <item name="android:scrollbarThumbVertical">@drawable/shape_round_scrollbar</item>
     </style>
 
+    <!-- Divider -->
+
+    <style name="Widget.MealToday.Divider" parent="Widget.Material3.MaterialDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>
 </resources>

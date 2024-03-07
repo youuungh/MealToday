@@ -67,7 +67,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         binding.detailTitle.text = "인기있는"
 
         val detailAdapter = DetailAdapter(args.type)
-
         homeViewModel.getHotMeals()
         homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
             detailAdapter.differ.submitList(data)
