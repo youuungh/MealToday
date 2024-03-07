@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="6dp"
+                android:paddingHorizontal="6dp"
+                android:fontFamily="@font/google_sans_regular"
+                android:text="Lorem IpsumLorem IpsumLorem Ipsum"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ems="11"
+                android:ellipsize="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/bg_search_ripple"
+                android:src="@drawable/ic_favorite"
+                app:layout_constraintBaseline_toBaselineOf="@id/title"
+                app:layout_constraintRight_toLeftOf="@id/video"/>
+
+            <ImageView
+                android:id="@+id/video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/bg_search_ripple"
+                android:padding="8dp"
+                android:src="@drawable/ic_play"
+                app:layout_constraintBaseline_toBaselineOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        style="@style/Widget.MealToday.Divider" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="ifContentScrolls">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="24dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/contentImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                android:fontFamily="@font/google_sans_regular"
+                android:text="@tools:sample/lorem/random"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/contentImage"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                tools:maxLines="15"/>
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingVertical="8dp"
+                android:fontFamily="@font/google_sans_medium"
+                android:text="Ingredients"
+                android:textSize="22sp"
+                android:textAlignment="textStart"
+                app:layout_constraintTop_toBottomOf="@id/content"
+                app:layout_constraintStart_toStartOf="@id/start"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:strokeWidth="0dp"
+                app:contentPadding="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="@color/md_grey_100"
+                app:layout_constraintTop_toBottomOf="@id/subtitle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start"
+                app:layout_constraintEnd_toEndOf="@id/end">
+
+                <TextView
+                    android:id="@+id/ingredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/google_sans_regular"
+                    android:text="@tools:sample/lorem/random"
+                    android:textSize="14sp"
+                    tools:maxLines="4"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
