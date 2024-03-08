@@ -1,91 +1,75 @@
-package com.example.mealtoday.ui.fragments
+package com.example.mealtoday.ui.fragments.bottomSheetDialog
 
-import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.mealtoday.R
+import com.example.mealtoday.databinding.CategoryBottomSheetBinding
 import com.example.mealtoday.model.Meal
-import com.example.mealtoday.databinding.FragmentMealBinding
-import com.example.mealtoday.ui.activities.MainActivity
+import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.MealViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.text.StringBuilder
 
 @AndroidEntryPoint
-class MealFragment : Fragment(R.layout.fragment_meal) {
+class CategoryBottomSheet : BottomSheetDialogFragment() {
 
     private val mealViewModel: MealViewModel by viewModels()
-    private val args: MealFragmentArgs by navArgs()
+    private val args: CategoryBottomSheetArgs by navArgs()
 
-    private lateinit var navController: NavController
-    private lateinit var binding: FragmentMealBinding
+    private var _binding: CategoryBottomSheetBinding? = null
+    private val binding get() = _binding!!
     private var saveMeal: Meal? = null
     private var isFavorite: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            drawingViewId = R.id.hostFragment
-            duration = 300L
-            scrimColor = Color.TRANSPARENT
-        }
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMealBinding.inflate(inflater, container, false)
+        _binding = CategoryBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-
-        ViewCompat.setTransitionName(view, "trans_${args.mealId}")
-
-        (activity as? MainActivity)?.apply {
-            setSupportActionBar(binding.toolbar)
-            supportActionBar?.title = " "
-        }
-        binding.toolbar.setupWithNavController(navController)
-        binding.collapsing.title = " "
 
         getMealInfo()
         observeMealInfoData()
-        setAppBarOffset()
     }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        object : BottomSheetDialog(requireContext(), theme) {
+            override fun onAttachedToWindow() {
+                super.onAttachedToWindow()
+
+                //
+
+            }
+        }
 
     private fun getMealInfo() {
         binding.title.text = args.mealTitle
 
-        Glide.with(this@MealFragment)
+        Glide.with(this@CategoryBottomSheet)
             .load(args.mealThumb)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(binding.mealImage)
+            .into(binding.contentImage)
     }
 
     private fun observeMealInfoData() {
@@ -93,8 +77,8 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data
             binding.apply {
-                category.text = data.strCategory
-                location.text = data.strArea
+                chipCategory.text = data.strCategory
+                chipLocation.text = data.strArea
                 content.text = data.strInstructions
 
                 mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {
@@ -157,37 +141,8 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         }.show()
     }
 
-    private fun setAppBarOffset() {
-        binding.appBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val window = requireActivity().window
-            val collapsingHeight = binding.collapsing.height
-            val minimumHeight = ViewCompat.getMinimumHeight(binding.collapsing) * 2
-            val controller = WindowCompat.getInsetsController(window, window.decorView)
-
-            val colorFilter = if ((collapsingHeight + verticalOffset) < minimumHeight) {
-                controller.isAppearanceLightStatusBars = true
-                PorterDuffColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.black),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-            } else {
-                controller.isAppearanceLightStatusBars = false
-                PorterDuffColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.white),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-            }
-            binding.toolbar.navigationIcon?.colorFilter = colorFilter
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        activity?.let {
-            WindowCompat.getInsetsController(
-                it.window,
-                requireActivity().window.decorView
-            ).isAppearanceLightStatusBars = true
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

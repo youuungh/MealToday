@@ -24,8 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+
     private lateinit var navController: NavController
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DynamicColors.applyToActivityIfAvailable(this)
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.mealFragment, R.id.categoryFragment, R.id.searchFragment, R.id.detailFragment -> {
+                R.id.mealFragment, R.id.categoryFragment, R.id.searchFragment,
+                R.id.detailFragment, R.id.categoryBottomSheet -> {
                     setBottomNavVisibility(visible = false)
                 }
                 else -> setBottomNavVisibility(visible = true)

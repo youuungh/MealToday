@@ -73,19 +73,61 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
             android:paddingBottom="24dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/contentImage"
+            <HorizontalScrollView
+                android:id="@+id/chipsContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
+                android:scrollbars="none"
+                android:overScrollMode="ifContentScrolls"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="3dp"
+                    android:paddingHorizontal="20dp"
+                    android:clipToPadding="false"
+                    app:singleLine="true"
+                    app:chipSpacing="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCategory"
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        app:chipIcon="@drawable/ic_category"
+                        app:chipIconTint="@color/md_theme_light_onSurfaceVariant" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLocation"
+                        style="@style/ChipTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        app:chipIcon="@drawable/ic_location"
+                        app:chipIconTint="@color/md_theme_light_onSurfaceVariant" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/imageContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@id/chipsContainer"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
 
                 <ImageView
+                    android:id="@+id/contentImage"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:adjustViewBounds="true"
@@ -101,10 +143,10 @@
                 android:fontFamily="@font/google_sans_regular"
                 android:text="@tools:sample/lorem/random"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/contentImage"
+                app:layout_constraintTop_toBottomOf="@id/imageContainer"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end"
-                tools:maxLines="15"/>
+                tools:maxLines="5"/>
 
             <TextView
                 android:id="@+id/subtitle"

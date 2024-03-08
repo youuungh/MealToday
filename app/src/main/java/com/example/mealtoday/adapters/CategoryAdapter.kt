@@ -3,6 +3,7 @@ package com.example.mealtoday.adapters
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -14,6 +15,8 @@ import com.example.mealtoday.databinding.CategoryContentBinding
 import eightbitlab.com.blurview.RenderEffectBlur
 
 class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
+
+    lateinit var onCategoryItemClick: ((Hot) -> Unit)
 
     private val diffUtil = object : DiffUtil.ItemCallback<Hot>() {
         override fun areItemsTheSame(oldItem: Hot, newItem: Hot): Boolean {
@@ -45,8 +48,12 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
             .into(holder.binding.contentImage)
 
         holder.apply {
-            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            binding.blurView.setupWith(binding.container, RenderEffectBlur())
             binding.contentTitle.text = data.strMeal
+
+            itemView.setOnClickListener {
+                onCategoryItemClick.invoke(data)
+            }
         }
     }
 }

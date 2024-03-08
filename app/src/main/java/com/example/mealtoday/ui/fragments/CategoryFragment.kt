@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +68,12 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             //layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = categoryAdapter
             setHasFixedSize(true)
+        }
+
+        categoryAdapter.onCategoryItemClick = { data ->
+            findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToCategoryBottomSheet(
+                data.idMeal, data.strMealThumb, data.strMeal
+            ))
         }
     }
 }

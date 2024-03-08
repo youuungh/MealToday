@@ -62,6 +62,7 @@
             android:paddingHorizontal="8dp"
             android:paddingBottom="8dp"
             android:clipToPadding="false"
+            android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

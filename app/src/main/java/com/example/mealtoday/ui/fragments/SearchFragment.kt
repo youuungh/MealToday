@@ -30,8 +30,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private val searchViewModel: SearchViewModel by viewModels()
 
-    private lateinit var binding: FragmentSearchBinding
     private lateinit var navController: NavController
+    private lateinit var binding: FragmentSearchBinding
     private lateinit var searchAdapter: SearchAdapter
     private var query: String? = null
 

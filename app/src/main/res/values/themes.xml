@@ -82,5 +82,16 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+    <!-- Chip -->
+
+    <style name="ChipTextStyle" parent="Widget.Material3.Chip.Assist">
+        <item name="android:textAppearance">@style/ChipTextAppearance</item>
+    </style>
+
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:fontFamily">@font/google_sans_regular</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Theme.MealToday" parent="Base.Theme.MealToday"/>
 </resources>
