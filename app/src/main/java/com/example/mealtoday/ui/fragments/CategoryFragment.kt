@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.CategoryAdapter
 import com.example.mealtoday.databinding.FragmentCategoryBinding
+import com.example.mealtoday.ui.fragments.bottomSheetDialog.CategoryBottomSheet
 import com.example.mealtoday.viewModel.CategoryViewModel
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,9 +72,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         }
 
         categoryAdapter.onCategoryItemClick = { data ->
-            findNavController().navigate(CategoryFragmentDirections.actionCategoryFragmentToCategoryBottomSheet(
-                data.idMeal, data.strMealThumb, data.strMeal
-            ))
+            CategoryBottomSheet().apply {
+                setData(data)
+            }.show(childFragmentManager, "CategoryBottomSheet")
         }
     }
 }

@@ -75,11 +75,29 @@
         <argument
             android:name="type"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_detailOverViewFragment"
+            app:destination="@id/detailOverViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryBottomSheet"
         android:name="com.example.mealtoday.ui.fragments.bottomSheetDialog.CategoryBottomSheet"
         android:label="CategoryBottomSheet" >
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <argument
+            android:name="mealThumb"
+            app:argType="string" />
+        <argument
+            android:name="mealTitle"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailOverViewFragment"
+        android:name="com.example.mealtoday.ui.fragments.DetailOverViewFragment"
+        android:label="fragment_detail_over_view"
+        tools:layout="@layout/fragment_detail_over_view">
         <argument
             android:name="mealId"
             app:argType="string" />

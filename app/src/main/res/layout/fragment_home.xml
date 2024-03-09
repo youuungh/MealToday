@@ -111,7 +111,7 @@
                 tools:ignore="RtlSymmetry" />
 
             <TextView
-                android:id="@+id/tvCategory"
+                android:id="@+id/category"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"
@@ -125,10 +125,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="10dp"
                 app:strokeWidth="0dp"
                 app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/tvCategory"
+                app:layout_constraintTop_toBottomOf="@id/category"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end">
@@ -137,11 +136,12 @@
                     android:id="@+id/categoryRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:orientation="vertical"
                     tools:listitem="@layout/item_category"
-                    tools:spanCount="3"/>
+                    tools:spanCount="4"
+                    tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
             </com.google.android.material.card.MaterialCardView>
 

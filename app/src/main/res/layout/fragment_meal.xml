@@ -83,7 +83,7 @@
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -93,7 +93,7 @@
                 android:background="@drawable/bg_round_text"
                 android:drawablePadding="6dp"
                 android:fontFamily="@font/google_sans_regular"
-                android:text="Location"
+                android:text="Area"
                 android:textStyle="bold"
                 android:singleLine="true"
                 android:ellipsize="end"

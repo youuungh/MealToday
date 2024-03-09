@@ -9,6 +9,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mealtoday.DRINK
@@ -18,6 +19,7 @@ import com.example.mealtoday.adapters.DetailAdapter
 import com.example.mealtoday.adapters.DrinkAdapter
 import com.example.mealtoday.adapters.HotAdapter
 import com.example.mealtoday.databinding.FragmentDetailBinding
+import com.example.mealtoday.ui.fragments.DetailFragmentDirections
 import com.example.mealtoday.viewModel.HomeViewModel
 import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -31,9 +33,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private val moreViewModel: MoreViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
+    private lateinit var navController: NavController
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
@@ -55,9 +57,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             DRINK -> loadDrinkAll()
         }
 
-        binding.appBarLayout.statusBarForeground =
-            MaterialShapeDrawable.createWithElevationOverlay(requireContext())
-
         binding.back.setOnClickListener {
             navController.popBackStack()
         }
@@ -75,6 +74,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         with(binding.detailRecycler) {
             layoutManager = LinearLayoutManager(context)
             adapter = detailAdapter
+        }
+
+        detailAdapter.onDetailItemClick = { data ->
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToDetailOverViewFragment(
+                data.idMeal, data.strMealThumb, data.strMeal
+            ))
         }
     }
 

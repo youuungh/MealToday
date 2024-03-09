@@ -92,9 +92,10 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
         mealViewModel.getMealInfo(args.mealId)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data
+
             binding.apply {
                 category.text = data.strCategory
-                location.text = data.strArea
+                area.text = data.strArea
                 content.text = data.strInstructions
 
                 mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {

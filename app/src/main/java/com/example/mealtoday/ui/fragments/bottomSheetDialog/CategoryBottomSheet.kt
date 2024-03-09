@@ -7,21 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updateMargins
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.mealtoday.R
 import com.example.mealtoday.databinding.CategoryBottomSheetBinding
+import com.example.mealtoday.model.Hot
 import com.example.mealtoday.model.Meal
-import com.example.mealtoday.utils.doOnApplyWindowInsets
 import com.example.mealtoday.viewModel.MealViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryBottomSheet : BottomSheetDialogFragment() {
 
     private val mealViewModel: MealViewModel by viewModels()
-    private val args: CategoryBottomSheetArgs by navArgs()
+    private lateinit var args: Hot
 
     private var _binding: CategoryBottomSheetBinding? = null
     private val binding get() = _binding!!
@@ -39,7 +35,8 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
     private var isFavorite: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = CategoryBottomSheetBinding.inflate(inflater, container, false)
@@ -53,32 +50,29 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
         observeMealInfoData()
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        object : BottomSheetDialog(requireContext(), theme) {
-            override fun onAttachedToWindow() {
-                super.onAttachedToWindow()
-
-                //
-
-            }
-        }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        dialog.behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        return dialog
+    }
 
     private fun getMealInfo() {
-        binding.title.text = args.mealTitle
+        binding.title.isSelected = true
+        binding.title.text = args.strMeal
 
-        Glide.with(this@CategoryBottomSheet)
-            .load(args.mealThumb)
+        Glide.with(requireContext())
+            .load(args.strMealThumb)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(binding.contentImage)
     }
 
     private fun observeMealInfoData() {
-        mealViewModel.getMealInfo(args.mealId)
+        mealViewModel.getMealInfo(args.idMeal)
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data
             binding.apply {
                 chipCategory.text = data.strCategory
-                chipLocation.text = data.strArea
+                chipArea.text = data.strArea
                 content.text = data.strInstructions
 
                 mealViewModel.isFavorite(data.idMeal).observe(viewLifecycleOwner) {
@@ -144,5 +138,9 @@ class CategoryBottomSheet : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun setData(data: Hot) {
+        args = data
     }
 }

@@ -42,12 +42,11 @@ class CategoriesHomeAdapter: RecyclerView.Adapter<CategoriesHomeAdapter.ItemView
 
         Glide.with(holder.itemView)
             .load(data.strCategoryThumb)
-            .override(80, 80)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.categoryImage)
 
         holder.apply {
-            binding.tvCategoryTitle.text = data.strCategory
+            binding.categoryTitle.text = data.strCategory
 
             itemView.setOnClickListener {
                 onCategoryItemClick.invoke(data)

@@ -71,7 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.getRandomMealLiveData.observe(viewLifecycleOwner) { data ->
             binding.randomImageLayout.transitionName = "trans_${data.idMeal}"
             run {
-                Glide.with(this@HomeFragment)
+                Glide.with(requireContext())
                     .load(data.strMealThumb)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.randomImage)
@@ -131,7 +131,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         with(binding.categoryRecycler) {
-            layoutManager = GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 4, RecyclerView.VERTICAL, false)
             adapter = categoriesHomeAdapter
         }
 
