@@ -48,6 +48,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             com.google.android.material.transition.platform.MaterialSharedAxis.Z,
             false
         ).addTarget(view)
+        reenterTransition = com.google.android.material.transition.platform.MaterialSharedAxis(
+            com.google.android.material.transition.platform.MaterialSharedAxis.X,
+            false
+        ).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailBinding.bind(view)
         navController = Navigation.findNavController(view)

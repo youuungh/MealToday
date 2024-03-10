@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.carousel.MaskableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="4dp"
     app:shapeAppearance="?attr/shapeAppearanceCornerExtraLarge">
@@ -26,11 +26,12 @@
         android:layout_gravity="bottom|center_horizontal"
         android:fontFamily="@font/google_sans_medium"
         android:text="제목"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textColor="@color/white"
         android:shadowRadius="10"
         android:shadowColor="@color/black"
-        android:maxLines="3"
+        android:maxLines="2"
+        android:ems="9"
         android:ellipsize="end"/>
 
 </com.google.android.material.carousel.MaskableFrameLayout>

@@ -48,7 +48,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-        enterTransition = MaterialFadeThrough().addTarget(view)
+        //enterTransition = MaterialFadeThrough().addTarget(view)
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(view)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)

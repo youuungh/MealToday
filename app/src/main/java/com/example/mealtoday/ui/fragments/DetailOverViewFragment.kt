@@ -19,6 +19,7 @@ import com.example.mealtoday.databinding.FragmentDetailOverViewBinding
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +35,12 @@ class DetailOverViewFragment : Fragment(R.layout.fragment_detail_over_view) {
     private var isFavorite: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
+            addTarget(view)
+        }
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
+            addTarget(view)
+        }
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailOverViewBinding.bind(view)
         navController = Navigation.findNavController(view)
