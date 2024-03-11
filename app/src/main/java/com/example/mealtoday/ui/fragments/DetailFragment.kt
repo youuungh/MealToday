@@ -82,7 +82,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         detailAdapter.onDetailItemClick = { data ->
             findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToDetailOverViewFragment(
-                data.idMeal, data.strMealThumb, data.strMeal
+                args.type.toString(), data.idMeal, data.strMealThumb, data.strMeal, "", ""
             ))
         }
     }
@@ -100,6 +100,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         with(binding.detailRecycler) {
             layoutManager = LinearLayoutManager(context)
             adapter = drinkAdapter
+        }
+
+        drinkAdapter.onDrinkItemClick = { data ->
+            findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToDetailOverViewFragment(
+                args.type.toString(), data.idDrink, data.strDrinkThumb, data.strDrink, data.strCategory, data.strAlcoholic
+            ))
         }
     }
 

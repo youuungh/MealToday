@@ -105,6 +105,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:paddingVertical="13dp"
                         android:gravity="center"
                         android:fontFamily="@font/google_sans_regular"
                         android:textSize="13sp"
@@ -119,6 +120,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:paddingVertical="13dp"
                         android:gravity="center"
                         android:fontFamily="@font/google_sans_regular"
                         android:textSize="13sp"
@@ -179,6 +181,7 @@
                 app:layout_constraintStart_toStartOf="@id/start"/>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ingredientContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

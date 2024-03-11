@@ -14,6 +14,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
@@ -50,9 +51,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        view.doOnPreDraw {
-            startPostponedEnterTransition()
-        }
+        view.doOnPreDraw { startPostponedEnterTransition() }
         enterTransition = com.google.android.material.transition.platform.MaterialFadeThrough().addTarget(view)
         reenterTransition = com.google.android.material.transition.platform.MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
@@ -64,6 +63,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         setUpSearchView()
         observeSearchMealData()
         setupSearchRecyclerView()
+        onSearchItemClick()
         clearText()
     }
 
@@ -109,6 +109,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     }
                 }
             })
+        }
+    }
+
+    private fun onSearchItemClick() {
+        searchAdapter.onSearchItemClick = { data ->
+            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailOverViewFragment(
+                "1", data.idMeal, data.strMealThumb, data.strMeal, "", ""
+            ))
         }
     }
 

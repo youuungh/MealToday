@@ -67,7 +67,11 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.mealtoday.ui.fragments.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailOverViewFragment"
+            app:destination="@id/detailOverViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.mealtoday.ui.fragments.DetailFragment"
@@ -99,6 +103,9 @@
         android:label="fragment_detail_over_view"
         tools:layout="@layout/fragment_detail_over_view">
         <argument
+            android:name="type"
+            app:argType="string"/>
+        <argument
             android:name="mealId"
             app:argType="string" />
         <argument
@@ -107,5 +114,11 @@
         <argument
             android:name="mealTitle"
             app:argType="string" />
+        <argument
+            android:name="drinkCategory"
+            app:argType="string"/>
+        <argument
+            android:name="drinkAlcoholic"
+            app:argType="string"/>
     </fragment>
 </navigation>

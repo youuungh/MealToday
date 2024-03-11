@@ -1,36 +1,35 @@
 package com.example.mealtoday.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mealtoday.DRINK
-import com.example.mealtoday.HOT_MEAL
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.BannerAdapter
-import com.example.mealtoday.adapters.BeverageAdapter
 import com.example.mealtoday.adapters.CockTailAdapter
 import com.example.mealtoday.adapters.DrinkAdapter
 import com.example.mealtoday.model.Banner
 import com.example.mealtoday.databinding.FragmentMoreBinding
+import com.example.mealtoday.ui.fragments.bottomSheetDialog.DrinkBottomSheet
 import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.carousel.CarouselSnapHelper
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class MoreFragment : Fragment(R.layout.fragment_more) {
@@ -39,7 +38,9 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
 
     private lateinit var binding: FragmentMoreBinding
     private var bannerList: ArrayList<Banner> = ArrayList()
-    private var currentPagePosition = 1
+    private var currentPagePosition = 0
+    private val handler = MyHandler()
+    private val delayMillis = 2000L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,25 +69,28 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         moreViewModel.getBannerMealLiveData.observe(viewLifecycleOwner) { data ->
             bannerList.clear()
             bannerList.addAll(data)
-            bannerAdapter.differ.submitList(bannerList)
+
+            binding.max.text = bannerList.size.toString()
         }
 
         with(binding.banner) {
             adapter = bannerAdapter
-            offscreenPageLimit = 3
-            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
             setCurrentItem(currentPagePosition, false)
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    binding.current.text ="${position + 1}"
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                    when (state) {
+                        ViewPager2.SCROLL_STATE_IDLE -> handlerStart(delayMillis)
+                        ViewPager2.SCROLL_STATE_DRAGGING -> handlerStop()
+                    }
+                }
+            })
         }
-
-        val compositePageTransformer = CompositePageTransformer()
-        compositePageTransformer.addTransformer(MarginPageTransformer(40))
-
-        compositePageTransformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = 0.85f + r * 0.15f
-        }
-
-        binding.banner.setPageTransformer(compositePageTransformer)
     }
 
     private fun setUpCocktail() {
@@ -119,10 +123,46 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             adapter = drinkAdapter
         }
 
+        drinkAdapter.onDrinkItemClick = { data ->
+            DrinkBottomSheet().apply {
+                setData(data)
+            }.show(childFragmentManager, "DrinkBottomSheet")
+        }
+
         binding.drinkAll.setOnClickListener {
             findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToDetailFragment(
                 DRINK
             ))
         }
+    }
+
+    private fun handlerStart(delayMillis: Long) {
+        handler.removeMessages(0)
+        handler.sendEmptyMessageDelayed(0, delayMillis)
+    }
+
+    private fun handlerStop(){
+        handler.removeMessages(0)
+    }
+
+    @SuppressLint("HandlerLeak")
+    private inner class MyHandler : Handler(Looper.myLooper()!!) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if(msg.what == 0) {
+                binding.banner.setCurrentItem(++currentPagePosition, true)
+                handlerStart(delayMillis)
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handlerStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        handlerStart(delayMillis)
     }
 }

@@ -17,6 +17,8 @@ import eightbitlab.com.blurview.RenderEffectBlur
 
 class SearchAdapter: RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
+    lateinit var onSearchItemClick: ((Meal) -> Unit)
+
     private val diffUtil = object : DiffUtil.ItemCallback<Meal>() {
         override fun areItemsTheSame(oldItem: Meal, newItem: Meal): Boolean {
             return oldItem.idMeal == newItem.idMeal
@@ -52,8 +54,12 @@ class SearchAdapter: RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
             .into(holder.binding.searchBg)
 
         holder.apply {
-            binding.blurView.setupWith(binding.root, RenderEffectBlur())
+            binding.blurView.setupWith(binding.container, RenderEffectBlur())
             binding.searchTitle.text = data.strMeal
+
+            itemView.setOnClickListener {
+                onSearchItemClick.invoke(data)
+            }
         }
     }
 }

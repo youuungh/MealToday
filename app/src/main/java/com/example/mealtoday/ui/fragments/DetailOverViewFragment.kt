@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -18,6 +19,7 @@ import com.example.mealtoday.R
 import com.example.mealtoday.databinding.FragmentDetailOverViewBinding
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.viewModel.MealViewModel
+import com.example.mealtoday.viewModel.MoreViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailOverViewFragment : Fragment(R.layout.fragment_detail_over_view) {
 
     private val mealViewModel: MealViewModel by viewModels()
+    private val moreViewModel: MoreViewModel by viewModels()
     private val args: DetailOverViewFragmentArgs by navArgs()
 
     private lateinit var navController: NavController
@@ -35,20 +38,24 @@ class DetailOverViewFragment : Fragment(R.layout.fragment_detail_over_view) {
     private var isFavorite: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).apply {
-            addTarget(view)
-        }
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).apply {
-            addTarget(view)
-        }
+        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true).addTarget(view)
+        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailOverViewBinding.bind(view)
         navController = Navigation.findNavController(view)
 
         binding.back.setOnClickListener { navController.popBackStack() }
 
-        getMealInfo()
-        observeMealInfoData()
+        when (args.type.toInt()) {
+            1 -> {
+                getMealInfo()
+                observeMealInfoData()
+            }
+            2 -> {
+                getDrinkInfo()
+                observeDrinkInfoData()
+            }
+        }
     }
 
     private fun getMealInfo() {
@@ -98,6 +105,32 @@ class DetailOverViewFragment : Fragment(R.layout.fragment_detail_over_view) {
                     .joinToString("\n")
                 ingredient.text = ingredients
             }
+        }
+    }
+
+    private fun getDrinkInfo() {
+        binding.apply {
+            title.isSelected = true
+            title.text = args.mealTitle
+            category.text = args.drinkCategory
+            area.text = args.drinkAlcoholic
+
+            favorite.isVisible = false
+            video.isVisible = false
+            subtitle.isVisible = false
+            ingredientContainer.isVisible = false
+        }
+
+        Glide.with(requireContext())
+            .load(args.mealThumb)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(binding.contentImage)
+    }
+
+    private fun observeDrinkInfoData() {
+        moreViewModel.getBeverageInfo(args.mealId)
+        moreViewModel.getBeverageInfoLiveData.observe(viewLifecycleOwner) { data ->
+            binding.content.text = data.strInstructions
         }
     }
 

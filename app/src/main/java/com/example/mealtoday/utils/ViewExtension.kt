@@ -62,8 +62,6 @@ fun NavigationBarView.show() {
     if (isVisible) return
 
     val parent = parent as ViewGroup
-    // View needs to be laid out to create a snapshot & know position to animate. If view isn't
-    // laid out yet, need to do this manually.
     if (!isLaidOut) {
         measure(
             View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY),
@@ -125,34 +123,26 @@ fun NavigationBarView.hide() {
 }
 
 fun View.focusAndShowKeyboard() {
-    /**
-     * This is to be called when the window already has focus.
-     */
+
     fun View.showTheKeyboardNow() {
         if (isFocused) {
             post {
-                // We still post the call, just in case we are being notified of the windows focus
-                // but InputMethodManager didn't get properly setup yet.
-                val imm =
-                    context.getSystemService<InputMethodManager>()
+                val imm = context.getSystemService<InputMethodManager>()
                 imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
             }
         }
     }
 
     requestFocus()
+
     if (hasWindowFocus()) {
-        // No need to wait for the window to get focus.
         showTheKeyboardNow()
     } else {
-        // We need to wait until the window gets focus.
         viewTreeObserver.addOnWindowFocusChangeListener(
             object : ViewTreeObserver.OnWindowFocusChangeListener {
                 override fun onWindowFocusChanged(hasFocus: Boolean) {
-                    // This notification will arrive just before the InputMethodManager gets set up.
                     if (hasFocus) {
                         this@focusAndShowKeyboard.showTheKeyboardNow()
-                        // It’s very important to remove this listener once we are done.
                         viewTreeObserver.removeOnWindowFocusChangeListener(this)
                     }
                 }

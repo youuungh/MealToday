@@ -14,6 +14,8 @@ import com.example.mealtoday.databinding.ItemDrinkBinding
 
 class DrinkAdapter: RecyclerView.Adapter<DrinkAdapter.ItemViewHolder>() {
 
+    lateinit var onDrinkItemClick: ((Drink) -> Unit)
+
     private val diffUtil = object : DiffUtil.ItemCallback<Drink>() {
         override fun areItemsTheSame(oldItem: Drink, newItem: Drink): Boolean {
             return oldItem.idDrink == newItem.idDrink
@@ -46,6 +48,10 @@ class DrinkAdapter: RecyclerView.Adapter<DrinkAdapter.ItemViewHolder>() {
             binding.drinkTitle.text = data.strDrink
             binding.alcoholic.text = data.strAlcoholic
             binding.glass.text = data.strGlass
+
+            itemView.setOnClickListener {
+                onDrinkItemClick.invoke(data)
+            }
         }
     }
 
