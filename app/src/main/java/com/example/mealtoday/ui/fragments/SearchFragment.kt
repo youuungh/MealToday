@@ -36,11 +36,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private lateinit var searchAdapter: SearchAdapter
     private var query: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchAdapter = SearchAdapter()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +54,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.back.setOnClickListener { navController.popBackStack() }
 
         searchViewModel.clearSearchResult()
+
+        searchAdapter = SearchAdapter()
 
         setUpSearchView()
         observeSearchMealData()

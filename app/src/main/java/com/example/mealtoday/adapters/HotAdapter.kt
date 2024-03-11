@@ -15,8 +15,6 @@ import com.example.mealtoday.ui.fragments.HomeFragmentDirections
 
 class HotAdapter: RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
 
-    //lateinit var onHotItemClick: ((Hot) -> Unit)
-
     private val diffUtil = object : DiffUtil.ItemCallback<Hot>() {
         override fun areItemsTheSame(oldItem: Hot, newItem: Hot): Boolean {
             return oldItem.idMeal == newItem.idMeal
@@ -51,7 +49,6 @@ class HotAdapter: RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
 
             itemView.transitionName = "trans_${data.idMeal}"
             itemView.setOnClickListener {
-                //onHotItemClick.invoke(data)
                 val extras = FragmentNavigatorExtras(binding.cvHotImage to "trans_${data.idMeal}")
                 Navigation.findNavController(it).navigate(
                     HomeFragmentDirections.actionHomeFragmentToMealFragment(

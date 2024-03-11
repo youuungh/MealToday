@@ -36,6 +36,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var hotAdapter: HotAdapter
+    private lateinit var categoriesHomeAdapter: CategoriesHomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,10 +55,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
+        hotAdapter = HotAdapter()
+        categoriesHomeAdapter = CategoriesHomeAdapter()
+
         setUpRandomMeal()
         setUpHotMeal()
         setUpCategories()
-        //onHotItemClick()
         onSearchClick()
 
         requireView().doOnApplyWindowInsets { insetView, windowInsets, initialPadding, _ ->
@@ -91,8 +95,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setUpHotMeal() {
-        val hotAdapter = HotAdapter()
-
         homeViewModel.getHotMeals()
         homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
             hotAdapter.differ.submitList(data)
@@ -111,18 +113,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-//    private fun onHotItemClick() {
-//        hotAdapter.onHotItemClick = { data ->
-//            val extras = FragmentNavigatorExtras(ItemHotBinding.inflate(layoutInflater).cvHotImage to "trans_${data.idMeal}")
-//            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToMealFragment(
-//                data.idMeal, data.strMealThumb, data.strMeal), extras
-//            )
-//        }
-//    }
-
     private fun setUpCategories() {
-        val categoriesHomeAdapter = CategoriesHomeAdapter()
-
         homeViewModel.getCategoriesHomeFragment()
         lifecycleScope.launch {
             homeViewModel.getCategoriesStateFlow.collect { data ->

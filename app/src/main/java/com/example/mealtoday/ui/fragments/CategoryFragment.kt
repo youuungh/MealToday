@@ -29,8 +29,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private val categoryViewModel: CategoryViewModel by viewModels()
     private val args: CategoryFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentCategoryBinding
     private lateinit var navController: NavController
+    private lateinit var binding: FragmentCategoryBinding
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +51,12 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         binding.back.setOnClickListener { navController.popBackStack() }
         binding.categoryTitle.text = args.categoryName
 
+        categoryAdapter = CategoryAdapter()
+
         setUpCategory()
     }
 
     private fun setUpCategory() {
-        val categoryAdapter = CategoryAdapter()
-
         lifecycleScope.launch {
             categoryViewModel.getCategory(args.categoryName)
             categoryViewModel.categoryStateFlow.collect { data ->

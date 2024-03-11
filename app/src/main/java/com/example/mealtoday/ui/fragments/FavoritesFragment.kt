@@ -32,11 +32,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var favoriteAdapter: FavoriteAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        favoriteAdapter = FavoriteAdapter()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +46,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         enterTransition = MaterialFadeThrough().addTarget(view)
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
+
+        favoriteAdapter = FavoriteAdapter()
 
         setUpFavorite()
         swipeToDelete(binding.favoriteRecycler)
