@@ -30,9 +30,7 @@ class BannerAdapter: RecyclerView.Adapter<BannerAdapter.ItemViewHolder>() {
         return ItemViewHolder(ItemBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: BannerAdapter.ItemViewHolder, position: Int) {
         val data = differ.currentList[position]
@@ -42,8 +40,6 @@ class BannerAdapter: RecyclerView.Adapter<BannerAdapter.ItemViewHolder>() {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.binding.bannerImage)
 
-        holder.apply {
-            binding.bannerTitle.text = data.strMeal
-        }
+        holder.binding.bannerTitle.text = data.strMeal
     }
 }

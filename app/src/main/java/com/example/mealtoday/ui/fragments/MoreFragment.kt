@@ -37,9 +37,13 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     private val moreViewModel: MoreViewModel by viewModels()
 
     private lateinit var binding: FragmentMoreBinding
+    private lateinit var bannerAdapter: BannerAdapter
+    private lateinit var cocktailAdapter: CockTailAdapter
+    private lateinit var drinkAdapter: DrinkAdapter
+
     private var bannerList: ArrayList<Banner> = ArrayList()
     private var currentPagePosition = 0
-    private val handler = MyHandler()
+    private val handler = Handler(Looper.myLooper()!!)
     private val delayMillis = 2000L
 
     override fun onCreateView(
@@ -57,14 +61,16 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         reenterTransition = MaterialFadeThrough().addTarget(view)
         super.onViewCreated(view, savedInstanceState)
 
+        bannerAdapter = BannerAdapter()
+        cocktailAdapter = CockTailAdapter()
+        drinkAdapter = DrinkAdapter()
+
         setUpBanner()
         setUpCocktail()
         setUpDrink()
     }
 
     private fun setUpBanner() {
-        val bannerAdapter = BannerAdapter()
-
         moreViewModel.getBannerMeals()
         moreViewModel.getBannerMealLiveData.observe(viewLifecycleOwner) { data ->
             bannerList.clear()
@@ -95,33 +101,29 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     private fun setUpCocktail() {
-        val cockTailAdapter = CockTailAdapter()
-
         lifecycleScope.launch {
             moreViewModel.getCocktails("Cocktail")
             moreViewModel.cocktailStateFlow.collect { data ->
-                cockTailAdapter.differ.submitList(data)
+                cocktailAdapter.differ.submitList(data)
             }
         }
 
-        CarouselSnapHelper().attachToRecyclerView(binding.cocktailRecycler)
         with(binding.cocktailRecycler) {
-            adapter = cockTailAdapter
+            adapter = cocktailAdapter
+            CarouselSnapHelper().attachToRecyclerView(this)
         }
     }
 
     private fun setUpDrink() {
-        val drinkAdapter = DrinkAdapter()
-
         moreViewModel.getDrinks()
         moreViewModel.getDrinkMealLiveData.observe(viewLifecycleOwner) { data ->
             drinkAdapter.differ.submitList(data)
         }
 
-        PagerSnapHelper().attachToRecyclerView(binding.drinkRecycler)
         with(binding.drinkRecycler) {
             layoutManager = GridLayoutManager(context, 5, RecyclerView.HORIZONTAL, false)
             adapter = drinkAdapter
+            PagerSnapHelper().attachToRecyclerView(this)
         }
 
         drinkAdapter.onDrinkItemClick = { data ->
@@ -138,23 +140,16 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
     }
 
     private fun handlerStart(delayMillis: Long) {
-        handler.removeMessages(0)
-        handler.sendEmptyMessageDelayed(0, delayMillis)
+        handler.removeCallbacksAndMessages(null)
+        handler.postDelayed({
+            currentPagePosition = (currentPagePosition + 1) % bannerList.size
+            binding.banner.setCurrentItem(currentPagePosition, true)
+        }, delayMillis)
     }
+
 
     private fun handlerStop(){
-        handler.removeMessages(0)
-    }
-
-    @SuppressLint("HandlerLeak")
-    private inner class MyHandler : Handler(Looper.myLooper()!!) {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            if(msg.what == 0) {
-                binding.banner.setCurrentItem(++currentPagePosition, true)
-                handlerStart(delayMillis)
-            }
-        }
+        handler.removeCallbacksAndMessages(null)
     }
 
     override fun onPause() {
