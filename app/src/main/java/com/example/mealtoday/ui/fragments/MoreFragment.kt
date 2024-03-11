@@ -69,6 +69,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         moreViewModel.getBannerMealLiveData.observe(viewLifecycleOwner) { data ->
             bannerList.clear()
             bannerList.addAll(data)
+            bannerAdapter.differ.submitList(bannerList)
 
             binding.max.text = bannerList.size.toString()
         }
