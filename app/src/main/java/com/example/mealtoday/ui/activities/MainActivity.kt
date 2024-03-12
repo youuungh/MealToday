@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.mealFragment, R.id.categoryFragment, R.id.searchFragment,
-                R.id.detailFragment, R.id.categoryBottomSheet, R.id.detailOverViewFragment -> {
+                R.id.detailFragment, R.id.categoryBottomSheet, R.id.detailOverViewFragment,
+                R.id.aboutFragment -> {
                     setBottomNavVisibility(visible = false)
                 }
                 else -> setBottomNavVisibility(visible = true)

@@ -89,6 +89,9 @@ dependencies {
 
     // BlurView
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
+
+    // OpenSource license
+    implementation("com.google.android.gms:play-services-oss-licenses:17.0.1")
 }
 
 kapt {

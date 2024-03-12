@@ -68,6 +68,7 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         setUpBanner()
         setUpCocktail()
         setUpDrink()
+        onAboutClick()
     }
 
     private fun setUpBanner() {
@@ -136,6 +137,12 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
             findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToDetailFragment(
                 DRINK
             ))
+        }
+    }
+
+    private fun onAboutClick() {
+        binding.about.setOnClickListener {
+            findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToAboutFragment())
         }
     }
 

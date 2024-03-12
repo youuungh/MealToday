@@ -61,9 +61,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             DRINK -> loadDrinkAll()
         }
 
-        binding.back.setOnClickListener {
-            navController.popBackStack()
-        }
+        binding.back.setOnClickListener { navController.popBackStack() }
     }
 
     private fun loadHotAll() {
