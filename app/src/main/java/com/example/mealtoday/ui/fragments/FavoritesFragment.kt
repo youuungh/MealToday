@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mealtoday.R
 import com.example.mealtoday.adapters.FavoriteAdapter
 import com.example.mealtoday.databinding.FragmentFavoritesBinding
-import com.example.mealtoday.ui.activities.MainActivity
 import com.example.mealtoday.utils.SwipeToDelete
 import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -105,4 +104,5 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
+
 }

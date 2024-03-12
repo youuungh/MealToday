@@ -4,6 +4,8 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.mealtoday.R
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.ItemFavoriteBinding
+import com.example.mealtoday.ui.fragments.FavoritesFragmentDirections
+import com.example.mealtoday.ui.fragments.HomeFragmentDirections
 import eightbitlab.com.blurview.RenderEffectBlur
 
 class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
@@ -47,8 +51,18 @@ class FavoriteAdapter: RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
             .into(holder.binding.favoriteImage)
 
         holder.apply {
-            binding.blurView.setupWith(binding.root, RenderEffectBlur())
-            binding.tvFavTitle.text = data.strMeal
+            binding.blurView.setupWith(binding.container, RenderEffectBlur())
+            binding.title.text = data.strMeal
+
+            itemView.transitionName = "trans_${data.idMeal}"
+            itemView.setOnClickListener {
+                val extras = FragmentNavigatorExtras(binding.cvFavoriteImage to "trans_${data.idMeal}")
+                Navigation.findNavController(it).navigate(
+                    FavoritesFragmentDirections.actionFavoritesFragmentToMealFragment(
+                        data.idMeal, data.strMealThumb, data.strMeal),
+                    extras
+                )
+            }
         }
     }
 }

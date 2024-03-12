@@ -52,7 +52,8 @@ class HotAdapter: RecyclerView.Adapter<HotAdapter.ItemViewHolder>() {
                 val extras = FragmentNavigatorExtras(binding.cvHotImage to "trans_${data.idMeal}")
                 Navigation.findNavController(it).navigate(
                     HomeFragmentDirections.actionHomeFragmentToMealFragment(
-                        data.idMeal, data.strMealThumb, data.strMeal), extras
+                        data.idMeal, data.strMealThumb, data.strMeal),
+                    extras
                 )
             }
         }
