@@ -32,7 +32,8 @@ Android 12 Snow Cone 이상 필요
 
 ## Features
 
-* 음식 개요 및 즐겨찾기
+* 음식 개요
+* 음식 즐겨찾기 및 검색 지원
 * Material 동적 색상 지원
 
 ## Screenshots
