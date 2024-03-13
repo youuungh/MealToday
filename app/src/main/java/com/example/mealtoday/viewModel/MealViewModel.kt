@@ -25,7 +25,7 @@ class MealViewModel @Inject constructor(
             try {
                 val response = mealRepository.getMealInfo(mealId)
                 if (response.isSuccessful) {
-                    _getMealInfoLiveData.postValue(response.body()?.meals?.getOrNull(0))
+                    _getMealInfoLiveData.postValue(response.body()?.meals?.getOrNull(0)!!)
                 }
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "MealInfo 에러")

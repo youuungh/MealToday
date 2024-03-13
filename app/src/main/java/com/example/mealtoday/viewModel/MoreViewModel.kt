@@ -105,7 +105,7 @@ class MoreViewModel @Inject constructor(
             try {
                 val response = moreRepository.getBeverageInfo(beverageId)
                 if (response.isSuccessful) {
-                    _getBeverageInfoLiveData.postValue(response.body()?.drinks?.getOrNull(0))
+                    _getBeverageInfoLiveData.postValue(response.body()?.drinks?.getOrNull(0)!!)
                 }
             } catch (t:Throwable) {
                 Log.d("TAG", t.message.toString() + "BeverageInfo 에러")
