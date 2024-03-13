@@ -119,6 +119,9 @@ class MoreFragment : Fragment(R.layout.fragment_more) {
         moreViewModel.getDrinks()
         moreViewModel.getDrinkMealLiveData.observe(viewLifecycleOwner) { data ->
             drinkAdapter.differ.submitList(data)
+
+            binding.scrollView.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
 
         with(binding.drinkRecycler) {

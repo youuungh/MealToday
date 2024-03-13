@@ -1,6 +1,5 @@
 package com.example.mealtoday.ui.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -22,7 +21,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.example.mealtoday.R
 import com.example.mealtoday.model.Meal
 import com.example.mealtoday.databinding.FragmentMealBinding
@@ -31,7 +29,6 @@ import com.example.mealtoday.viewModel.MealViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.text.StringBuilder
 
 @AndroidEntryPoint
 class MealFragment : Fragment(R.layout.fragment_meal) {

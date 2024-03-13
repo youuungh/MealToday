@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -98,6 +100,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.getHotMeals()
         homeViewModel.getHotMealLiveData.observe(viewLifecycleOwner) { data ->
             hotAdapter.differ.submitList(data)
+
+            binding.container.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
         }
 
         with(binding.hotRecycler) {
