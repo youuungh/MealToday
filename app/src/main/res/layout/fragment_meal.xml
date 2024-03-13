@@ -153,12 +153,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:fontFamily="@font/google_sans_regular"
-                android:text="@tools:sample/lorem/random"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintEnd_toEndOf="@id/end"
-                tools:maxLines="10"/>
+                tools:maxLines="10"
+                tools:text="@tools:sample/lorem/random"/>
 
             <TextView
                 android:id="@+id/subtitle"
@@ -191,9 +191,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/google_sans_regular"
-                    android:text="@tools:sample/lorem/random"
                     android:textSize="14sp"
-                    tools:maxLines="4"/>
+                    tools:maxLines="4"
+                    tools:text="@tools:sample/lorem/random"/>
 
             </com.google.android.material.card.MaterialCardView>
 
