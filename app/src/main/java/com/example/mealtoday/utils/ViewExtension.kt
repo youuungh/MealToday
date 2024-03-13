@@ -21,7 +21,6 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
-import com.google.android.material.progressindicator.BaseProgressIndicator
 
 const val ANIM_DURATION_SHOW = 400L
 const val ANIM_DURATION_HIDE = 300L
