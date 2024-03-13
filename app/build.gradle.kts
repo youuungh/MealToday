@@ -20,9 +20,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lint {
-        baseline = file("lint_baseline.xml")
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
