@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.mealtoday.ui.fragments.HomeFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.mealtoday.ui.fragments.FavoritesFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.example.mealtoday.ui.fragments.MoreFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.MoreFragment"
         android:label="fragment_more"
         tools:layout="@layout/fragment_more" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/mealFragment"
-        android:name="com.example.mealtoday.ui.fragments.MealFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.MealFragment"
         android:label="fragment_meal"
         tools:layout="@layout/fragment_meal" >
         <argument
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.mealtoday.ui.fragments.CategoryFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" >
         <argument
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.mealtoday.ui.fragments.SearchFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_detailOverViewFragment"
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.mealtoday.ui.fragments.DetailFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.DetailFragment"
         android:label="DetailFragment" >
         <argument
             android:name="type"
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryBottomSheet"
-        android:name="com.example.mealtoday.ui.fragments.bottomSheetDialog.CategoryBottomSheet"
+        android:name="com.ninezero.mealtoday.ui.fragments.bottomSheetDialog.CategoryBottomSheet"
         android:label="CategoryBottomSheet" >
         <argument
             android:name="mealId"
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailOverViewFragment"
-        android:name="com.example.mealtoday.ui.fragments.DetailOverViewFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.DetailOverViewFragment"
         android:label="fragment_detail_over_view"
         tools:layout="@layout/fragment_detail_over_view">
         <argument
@@ -133,7 +133,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.mealtoday.ui.fragments.AboutFragment"
+        android:name="com.ninezero.mealtoday.ui.fragments.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
 </navigation>

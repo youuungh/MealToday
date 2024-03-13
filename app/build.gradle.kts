@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mealtoday"
+    namespace = "com.ninezero.mealtoday"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.mealtoday"
+        applicationId = "com.ninezero.mealtoday"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
