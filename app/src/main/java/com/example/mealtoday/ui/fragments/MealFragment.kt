@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -94,6 +95,9 @@ class MealFragment : Fragment(R.layout.fragment_meal) {
             saveMeal = data
 
             binding.apply {
+                subtitle.isVisible = true
+                ingredientContainer.isVisible = true
+
                 category.text = data.strCategory
                 area.text = data.strArea
                 content.text = data.strInstructions

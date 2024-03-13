@@ -73,6 +73,9 @@ class DetailOverViewFragment : Fragment(R.layout.fragment_detail_over_view) {
         mealViewModel.getMealInfoLiveData.observe(viewLifecycleOwner) { data ->
             saveMeal = data
             binding.apply {
+                subtitle.isVisible = true
+                ingredientContainer.isVisible = true
+
                 category.text = data.strCategory
                 area.text = data.strArea
                 content.text = data.strInstructions
