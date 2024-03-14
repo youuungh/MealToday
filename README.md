@@ -7,7 +7,7 @@ Hilt, Retrofit2 및 Material You Design를 학습하는 것을 목적으로 개�
 
 ## Downloads
 
-<a href='https://github.com/youuungh/meal-today-android-app/releases'><img alt='Get it on GitHub' height="80" src='https://github.com/youuungh/simple-note-android-app/assets/97438155/10bb58ee-329b-496d-9ac0-5e737ce8ab30'/></a>
+<a href='https://github.com/youuungh/MealToday/releases'><img alt='Get it on GitHub' height="80" src='https://github.com/youuungh/simple-note-android-app/assets/97438155/10bb58ee-329b-496d-9ac0-5e737ce8ab30'/></a>
 
 ## Libraries
 <ul>
